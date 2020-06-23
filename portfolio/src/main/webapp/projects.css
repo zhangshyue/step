@@ -3,14 +3,7 @@ body {
 }
 
 .project {
-    padding: 20px;
-    border: 1px solid black;
     width: 70%;
     margin: auto;
-    margin-top:3em
-}
-
-.project h3 {
-    font-size: xx-large;
-    margin:0.5em;
+    margin-top: 3em;
 }

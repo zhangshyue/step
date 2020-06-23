@@ -7,17 +7,24 @@
     font-style: normal;
 }
 
+#background h1 {
+    font-size: xxx-large;
+}
+
 #intro p {
     text-align: center;
     vertical-align: middle;
+    font-size: xx-large;
+    width: 60%;
+    margin: auto;
 }
 
-#background div{
+#background .facts {
     overflow-x: auto;
     overflow-y: hidden;
 }
 
-#background div p{
+#background .facts p {
     overflow: hidden;
     display:inline-block;
     width:60%;

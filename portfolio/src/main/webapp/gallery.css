@@ -1,3 +1,23 @@
+.title {
+    height:93vh;
+    background-color: beige;
+}
+
+.title h1 {
+    text-align: center;
+    padding-top: 30vh;
+    margin: 0;
+}
+
+.invite-scroll {
+    margin-top:calc(50vh - 100px);
+    text-align:center;
+}
+
+.invite-scroll div {
+    font-size: 1.6em;
+}
+
 h1 {
     margin:1em;
 }

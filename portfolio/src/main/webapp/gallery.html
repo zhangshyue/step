@@ -5,7 +5,11 @@
         <title>My Portfolio</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="gallery.css">
-        <script src="script.js"></script>
+        <script src="https://unpkg.com/scrollreveal@4"></script>
+	<script>
+		ScrollReveal({ duration: 1000 })
+	</script>
+        <script src="gallery.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -27,6 +31,13 @@
                 </ul>
             </div>
         </nav>
+        <div class="w-100 title">
+            <h1 class = "display-3">Welcome to my gallery!</h1>
+            <div class="invite-scroll">
+                <h5>Scroll to discover</h5>
+                <div>↓</div>
+            </div>
+        </div>
         <h1>Some pictures that I took summer 2019</h3>
         <div class="travel row">
             <figure class="col-md-6 col-lg-4 col-12 container">
@@ -35,35 +46,35 @@
                     <div class="text">The Acropolis of Athens is definately a must, no words to describe its impressiveness.</div>
                 </div>
             </figure>
-
+ 
             <figure class="col-md-6 col-lg-4 col-12 container">
                 <img alt="french backery" src="images/backey.jpg" class="img-fluid image" />
                 <div class="middle">
                     <div class="text">I really really miss french patisserie</div>
                 </div>
             </figure>
-
+ 
             <figure class="col-md-6 col-lg-4 col-12 container">
                 <img alt="Casa Mila" src="images/casa_mila.jpg" class="img-fluid image" />
                 <div class="middle">
                     <div class="text">Living in private residence design by Gadi is like living in a fairy tale.</div>
                 </div>
             </figure>
-
+ 
             <figure class="col-md-6 col-lg-4 col-12 container">
                 <img alt="Cathédrale Notre-Dame de Paris" src="images/Notredame.jpg" class="img-fluid image" />
                 <div class="middle">
                     <div class="text">Passing by Nortre-Dame after that acident. Hope it gets repaired soon.</div>
                 </div>
             </figure>
-
+ 
             <figure class="col-md-6 col-lg-4 col-12 container">
                 <img alt="La Sagrada Familia" src="images/sagrada.jpg" class="img-fluid image" />
                 <div class="middle">
                     <div class="text">I just love Gaudi's works, would definately visit again when it's completed in 2026.</div>
                 </div>
             </figure>
-
+ 
             <figure class="col-md-6 col-lg-4 col-12 container">
                 <img alt="Santorini" src="images/santorini.jpg" class="img-fluid image" />
                 <div class="middle">
@@ -72,5 +83,6 @@
             </figure>
             </div>
         </div>
+    <script src="gallery.js"></script>
     </body>
 </html>

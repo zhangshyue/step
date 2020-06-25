@@ -13,7 +13,8 @@ body {
 .photo img {
     border-radius: 0.25em;
     display: block;
-    max-width:600px;
+    max-width: 600px;
+    width: 100%;
     margin:auto;
     background: #444;
     border: 0.25em solid #444;
@@ -39,12 +40,23 @@ body {
     width:60%;
 }
 
+.line {
+    border: 0;
+    height: 0.75em;
+    background: #c66;
+    clear: both;
+    margin: 0 2em;
+    border-radius: 0.25em;
+    max-width: 1000px;
+    margin: auto;
+}
+
 .border1 {
-    border-right:  3px dotted grey; 
+    border-right:  3px dotted #c66; 
 }
 
 .border2 {
-    border-left: 3px dotted grey;
+    border-left: 3px dotted #c66;
     right: 3px;
 }
 

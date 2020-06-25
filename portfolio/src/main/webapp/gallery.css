@@ -77,12 +77,12 @@ h1 {
   }
 }
 
-.france {
+.france,.greece,.spain {
     justify-content: center;
     align-items: center;
 }
 
-.france .circle {
+.france .circle, .greece .circle, .spain .circle {
     text-align: center;
     width: 15vw;
     height: 15vw;
@@ -94,7 +94,7 @@ h1 {
     margin: auto;
 }
 
-.france>div:after {
+.france>div:after,.greece>div:after,.spain>div:after {
     content:"";
     position: absolute;
     z-index: -1;

@@ -37,28 +37,43 @@
         </div>
     </div>
     <hr>
-        <h3>Some facts about me</h3>
-        <div class = "facts">
-            <img src="images/cat.jpeg" alt="Cat" width="300" height="200">
-            <p> I've always want to have a cat, hope I can have one when I live by myself.</p>
+        <h1 class="text-center p-2">Some facts about me</h1>
+        <div class = "container">
+            <div class = "facts row">
+                <div class="col-6 border1">
+                    <h3> Where I come from</h3> 
+                    <p> I'm from Xinjiang, northwest part of China with 50% muslim population (a major reason I'm learing Turkish). Therefore, I'm a big fan of Middle eastern food and culture.</p>
+                </div>
+                <div class="col-6"></div>
+            </div>
+            <div class = "facts row">
+                <div class="col-6"></div>
+                <div class="col-6 border2">
+                    <h3> Where I have lived</h3> 
+                    <p> I grew up in Shenzhen which is in south of China. I lived in France for a year as an exchange student during high school and now I'm in US as an undergraduate student.</p>
+                </div>
+            </div>
+            <div class = "facts row">
+                <div class="col-6 border1">
+                    <h3> Languages</h3> 
+                    <p> Mandarin is my native language. I speak English and French fluently and intermediate level in German. I once reached A1 in Arabic, but I have forgotten most of it.</p>
+                </div>
+                <div class="col-6"></div>
+            </div>
+            <div class = "facts row">
+                <div class="col-6"></div>
+                <div class="col-6 border2">
+                    <h3> Other fun facts</h3> 
+                    <p> I don't gain weight no matter how much I eat, even though I have a pretty big appetite. My weight has stayed about the same (± 1kg) over the past 6 years.</p>
+                </div>
+            </div>
+            <div class="row" style="max-width:600px;margin:auto;">
+                <p class="col-12 col-md-6">Look me up on:</p>
+                <h4 class="col-6 col-md-3"><a href="https://www.linkedin.com/in/shiyue-zhang-58828b196">Linkedin</a></h4>
+                <h4 class="col-6 col-md-3"><a href="https://github.com/zhangshyue">Github</a></h4>
+            </div>
         </div>
-        <div class = "facts">
-            <img src="images/nourse.jpg" alt="Carleton" width="300" height="200">
-            <p> This is where I am staying this summer, in the middle of nowhere in Minnesota.</p>
-        </div>
-        <div class = "facts">
-            <img src="images/xinjiang.jpg" alt="Xinjiang" width="300" height="200">
-            <p> My family is from Xinjiang, northwest part of China with 50% muslim population. I'm a big fan of Middle eastern food and culture.</p>
-        </div>
-        <div class = "facts">
-            <img src="images/shenzhen.jpg" alt="Shenzhen" width="300" height="200">
-            <p> I grew up in Shenzhen, lived in France for a year as an exchange student and now I'm in US. </p>
-        </div>
-        <div class="row" style="max-width:600px;margin:auto;">
-            <p class="col-12 col-md-6">Look me up on:</p>
-            <h4 class="col-6 col-md-3"><a href="https://www.linkedin.com/in/shiyue-zhang-58828b196">Linkedin</a></h4>
-            <h4 class="col-6 col-md-3"><a href="https://github.com/zhangshyue">Github</a></h4>
-        </div>
+        <hr>
         <p>Click here to get a random message:</p>
         <button onclick="addRandomGreeting()">Hello</button>
         <div id="greeting-container"></div>

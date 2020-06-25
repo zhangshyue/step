@@ -22,7 +22,47 @@ h1 {
     margin:1em;
 }
 
-.travel {
+.france,.greece,.spain {
+    justify-content: center;
+    align-items: center;
+}
+
+.france .circle, .greece .circle, .spain .circle {
+    text-align: center;
+    width: 15vw;
+    height: 15vw;
+    border-radius: 50%;
+    color: #fff;
+    line-height: 15vw;
+    background: #000;
+    flex: 0 0 0;
+    margin: auto;
+}
+
+@media only screen and (max-width: 700px) {
+  .france .circle, .greece .circle, .spain .circle {
+    font-size: medium;
+  }
+}
+
+@media screen and (max-width: 1150px) and (min-width: 700px) {
+  .france .circle, .greece .circle, .spain .circle {
+    font-size: xx-large;
+  }
+}
+
+.france>div:after,.greece>div:after,.spain>div:after {
+    content:"";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: -12.5vw;
+    border-left: 2px dotted black;
+    transform: translate(-50%);
+}
+
+.carleton {
     width: 70%;
     margin: auto;
     margin-top: 3em;
@@ -75,32 +115,4 @@ h1 {
   .text {
     font-size: medium;
   }
-}
-
-.france,.greece,.spain {
-    justify-content: center;
-    align-items: center;
-}
-
-.france .circle, .greece .circle, .spain .circle {
-    text-align: center;
-    width: 15vw;
-    height: 15vw;
-    border-radius: 50%;
-    color: #fff;
-    line-height: 15vw;
-    background: #000;
-    flex: 0 0 0;
-    margin: auto;
-}
-
-.france>div:after,.greece>div:after,.spain>div:after {
-    content:"";
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    bottom: 0;
-    left: -12.5vw;
-    border-left: 2px dotted black;
-    transform: translate(-50%);
 }

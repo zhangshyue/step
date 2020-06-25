@@ -1,3 +1,9 @@
+body,html {
+    overflow: visible;
+    min-height: 100%;
+    overflow-x:initial;
+}
+
 .title {
     height:93vh;
     background-color: beige;

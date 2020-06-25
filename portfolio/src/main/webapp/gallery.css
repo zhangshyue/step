@@ -76,3 +76,31 @@ h1 {
     font-size: medium;
   }
 }
+
+.france {
+    justify-content: center;
+    align-items: center;
+}
+
+.france .circle {
+    text-align: center;
+    width: 15vw;
+    height: 15vw;
+    border-radius: 50%;
+    color: #fff;
+    line-height: 15vw;
+    background: #000;
+    flex: 0 0 0;
+    margin: auto;
+}
+
+.france>div:after {
+    content:"";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: -12.5vw;
+    border-left: 2px dotted black;
+    transform: translate(-50%);
+}

@@ -1,22 +1,31 @@
-#background {
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
+body {
     font-family: "Circular Book", sans-serif;
     font-weight: normal;
     font-style: normal;
 }
 
-nav h1 {
-    font-size: xxx-large;
+#background {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
 }
 
-#intro p {
-    text-align: center;
-    vertical-align: middle;
-    font-size: xx-large;
-    width: 60%;
-    margin: auto;
+.photo img {
+    border-radius: 0.25em;
+    display: block;
+    max-width:600px;
+    margin:auto;
+    background: #444;
+    border: 0.25em solid #444;
+}
+
+#intro {
+    max-width:600px;
+    margin:auto;
+}
+
+#intro p:nth-child(2) {
+    font-size:xx-large;
 }
 
 #background .facts {

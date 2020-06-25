@@ -3,19 +3,40 @@
   <head>
     <meta charset="UTF-8">
     <title>My Portfolio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </head>
   <body>
-    <nav>
-        <h1>Shiyue's Portfolio</h1>
-        <a href="/projects.html">Projects</a> |
-        <a href="#">Gallery</a> |
-    </nav>
-    <div id="background">
-        <div id="intro">
-            <p>Hi! This is Shiyue, a rising junior at Carleton College. I'm a computer science major and maths minor. </p>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/index.html">Shiyue's Portfolio</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/projects.html">Projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/gallery.html">Gallery</a>
+            </li>
+            </ul>
         </div>
+    </nav>
+    <div id="background" class = "my-5">
+        <figure class = "p-2 photo">
+            <img src="images/shiyue.jpg" alt="Shiyue Zhang" class = "img-fluid">
+        </figure>
+        <div id="intro" class="">
+            <p class="text-center display-4">Hi!This is Shiyue.</p>
+            <p class="text-center"> I'm a rising junior at Carleton College studying computer science and maths. </p>
+        </div>
+    </div>
+    <hr>
         <h3>Some facts about me</h3>
         <div class = "facts">
             <img src="images/cat.jpeg" alt="Cat" width="300" height="200">
@@ -33,8 +54,11 @@
             <img src="images/shenzhen.jpg" alt="Shenzhen" width="300" height="200">
             <p> I grew up in Shenzhen, lived in France for a year as an exchange student and now I'm in US. </p>
         </div>
-        <h4><a href="https://www.linkedin.com/in/shiyue-zhang-58828b196">My linkedin</a></h4>
-        <h4><a href="https://github.com/zhangshyue">My github</a></h4>
+        <div class="row" style="max-width:600px;margin:auto;">
+            <p class="col-12 col-md-6">Look me up on:</p>
+            <h4 class="col-6 col-md-3"><a href="https://www.linkedin.com/in/shiyue-zhang-58828b196">Linkedin</a></h4>
+            <h4 class="col-6 col-md-3"><a href="https://github.com/zhangshyue">Github</a></h4>
+        </div>
         <p>Click here to get a random message:</p>
         <button onclick="addRandomGreeting()">Hello</button>
         <div id="greeting-container"></div>

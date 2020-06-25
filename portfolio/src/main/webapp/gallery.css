@@ -1,0 +1,124 @@
+body,html {
+    overflow: visible;
+    min-height: 100%;
+    overflow-x:initial;
+}
+
+.title {
+    height:93vh;
+    background-color: beige;
+}
+
+.title h1 {
+    text-align: center;
+    padding-top: 30vh;
+    margin: 0;
+}
+
+.invite-scroll {
+    margin-top:calc(50vh - 100px);
+    text-align:center;
+}
+
+.invite-scroll div {
+    font-size: 1.6em;
+}
+
+h1 {
+    margin:1em;
+}
+
+.france,.greece,.spain {
+    justify-content: center;
+    align-items: center;
+}
+
+.france .circle, .greece .circle, .spain .circle {
+    text-align: center;
+    width: 15vw;
+    height: 15vw;
+    border-radius: 50%;
+    color: #fff;
+    line-height: 15vw;
+    background: #000;
+    flex: 0 0 0;
+    margin: auto;
+}
+
+@media only screen and (max-width: 700px) {
+  .france .circle, .greece .circle, .spain .circle {
+    font-size: medium;
+  }
+}
+
+@media screen and (max-width: 1150px) and (min-width: 700px) {
+  .france .circle, .greece .circle, .spain .circle {
+    font-size: xx-large;
+  }
+}
+
+.france>div:after,.greece>div:after,.spain>div:after {
+    content:"";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: -12.5vw;
+    border-left: 2px dotted black;
+    transform: translate(-50%);
+}
+
+.carleton {
+    width: 70%;
+    margin: auto;
+    margin-top: 3em;
+}
+
+.container {
+  position: relative;
+  width: 50%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  color: black;
+}
+
+@media only screen and (min-width: 1440px) {
+  .text {
+    font-size: x-large;
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  .text {
+    font-size: medium;
+  }
+}

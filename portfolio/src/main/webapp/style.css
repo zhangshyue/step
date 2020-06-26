@@ -29,6 +29,10 @@ body {
     font-size:xx-large;
 }
 
+.txt-rotate > .wrap { 
+    border-right: 0.08em solid #666 
+}
+
 #background .facts {
     overflow-x: auto;
     overflow-y: hidden;

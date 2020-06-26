@@ -9,10 +9,11 @@
         <!-- <script>
             ScrollReveal({ duration: 1000 })
         </script> -->
-        <!-- <script src="gallery.js"></script> -->
+        
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="gallery.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -32,7 +33,33 @@
             </div>
         </nav>
         <div class="w-100 title">
-            <h1 class = "display-3">Welcome to my gallery!</h1>
+            <!-- <h1 class = "display-3">WELCOME TO MY GALLERY!</h1> -->
+            <svg class="intro go" viewbox="0 0 300 50">
+                <text text-anchor="start" x="10" y="30" class="text text-stroke" clip-path="url(#text1)">WELCOME</text>
+                <text text-anchor="start" x="123" y="30" class="text text-stroke" clip-path="url(#text2)">TO</text>
+                <text text-anchor="start" x="160" y="30" class="text text-stroke" clip-path="url(#text3)">MY</text>
+                <text text-anchor="start" x="200" y="30" class="text text-stroke" clip-path="url(#text4)">GALLERY</text>
+                <text text-anchor="start" x="10" y="30" class="text text-stroke text-stroke-2" clip-path="url(#text1)">WELCOME</text>
+                <text text-anchor="start" x="123" y="30" class="text text-stroke text-stroke-2" clip-path="url(#text2)">TO</text>
+                <text text-anchor="start" x="160" y="30" class="text text-stroke text-stroke-2" clip-path="url(#text3)">MY</text>
+                <text text-anchor="start" x="200" y="30" class="text text-stroke text-stroke-2" clip-path="url(#text4)">GALLERY</text>
+                <defs>
+                    <clipPath id="text1">
+                    <text text-anchor="start" x="10" y="30" class="text">WELCOME</text>
+                    </clipPath>
+                    <clipPath id="text2">
+                    <text text-anchor="start" x="123" y="30" class="text">TO</text>
+                    </clipPath>
+                    <clipPath id="text3">
+                    <text text-anchor="start" x="160" y="30" class="text">MY</text>
+                    </clipPath>
+                <clipPath id="text4">
+                    <text text-anchor="start" x="200" y="30" class="text">GALLERY</text>
+                    </clipPath>
+                </defs>
+            </svg>
+<!-- <div></div> -->
+
             <div class="invite-scroll">
                 <h5>Scroll to discover</h5>
                 <div>↓</div>

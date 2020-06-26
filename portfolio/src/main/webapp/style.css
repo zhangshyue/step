@@ -11,13 +11,13 @@ body {
 }
 
 .photo img {
-    border-radius: 0.25em;
+    border-radius: 0.55em;
     display: block;
     max-width: 600px;
     width: 100%;
     margin:auto;
-    background: #444;
-    border: 0.25em solid #444;
+    background: #666;
+    border: 0.60em solid #666;
 }
 
 #intro {
@@ -52,12 +52,21 @@ body {
 }
 
 .border1 {
-    border-right:  3px dotted #c66; 
+    border-right:  3px dotted#666; 
 }
 
 .border2 {
-    border-left: 3px dotted #c66;
+    border-left: 3px dotted #666;
     right: 3px;
+}
+
+.links {
+    max-width:600px;
+    margin:auto;
+}
+
+.links .col-6 a {
+    color: #c66;
 }
 
 #greeting-container {

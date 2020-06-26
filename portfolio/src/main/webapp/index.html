@@ -11,34 +11,70 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </head>
   <body>
-    <nav>
-        <h1>Shiyue's Portfolio</h1>
-        <a href="/projects.html">Projects</a> |
-        <a href="/gallery.html">Gallery</a> |
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/index.html">Shiyue's Portfolio</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/projects.html">Projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/gallery.html">Gallery</a>
+            </li>
+            </ul>
+        </div>
     </nav>
-    <div id="background">
-        <div id="intro">
-            <p>Hi! This is Shiyue, a rising junior at Carleton College. I'm a computer science major and maths minor. </p>
+    <div id="background" class = "container my-5">
+        <figure class = "p-2 photo">
+            <img src="images/shiyue.jpg" alt="Shiyue Zhang" class = "img-fluid">
+        </figure>
+        <div id="intro" class="py-5">
+            <p class="text-center display-4">Hi!This is Shiyue.</p>
+            <p class="text-center"> I'm a rising junior at Carleton College studying computer science and maths. </p>
         </div>
-        <h3>Some facts about me</h3>
-        <div class = "facts">
-            <img src="images/cat.jpeg" alt="Cat" width="300" height="200">
-            <p> I've always want to have a cat, hope I can have one when I live by myself.</p>
+    </div>
+    <div class = "container">
+        <hr class="line mx-5">
+        <h1 class="text-center p-5">Some facts about me</h1>
+            <div class = "row">
+                <div class="col-6 border1 p-4">
+                    <h3> Where I come from</h3> 
+                    <p> I'm from Xinjiang, northwest part of China with 50% muslim population (a major reason I'm learing Turkish). Therefore, I'm a big fan of Middle eastern food and culture.</p>
+                </div>
+                <div class="col-6"></div>
+            </div>
+            <div class = "row">
+                <div class="col-6"></div>
+                <div class="col-6 border2 p-4">
+                    <h3> Where I have lived</h3> 
+                    <p> I grew up in Shenzhen which is in south of China. I lived in France for a year as an exchange student during high school and now I'm in US as an undergraduate student.</p>
+                </div>
+            </div>
+            <div class = "row">
+                <div class="col-6 border1 p-4">
+                    <h3> Languages</h3> 
+                    <p> Mandarin is my native language. I speak English and French fluently and intermediate level in German. I once reached A1 in Arabic, but I have forgotten most of it.</p>
+                </div>
+                <div class="col-6"></div>
+            </div>
+            <div class = "row">
+                <div class="col-6"></div>
+                <div class="col-6 border2 p-4">
+                    <h3> Other fun facts</h3> 
+                    <p> I don't gain weight no matter how much I eat, even though I have a pretty big appetite. My weight has stayed about the same (± 1kg) over the past 6 years.</p>
+                </div>
+            </div>
+            <hr class="line m-5">
+            <div class="row links">
+                <p class="col-12 col-md-6">Look me up on:</p>
+                <h4 class="col-6 col-md-3"><a href="https://www.linkedin.com/in/shiyue-zhang-58828b196">Linkedin</a></h4>
+                <h4 class="col-6 col-md-3"><a href="https://github.com/zhangshyue">Github</a></h4>
+            </div>
         </div>
-        <div class = "facts">
-            <img src="images/nourse.jpg" alt="Carleton" width="300" height="200">
-            <p> This is where I am staying this summer, in the middle of nowhere in Minnesota.</p>
-        </div>
-        <div class = "facts">
-            <img src="images/xinjiang.jpg" alt="Xinjiang" width="300" height="200">
-            <p> My family is from Xinjiang, northwest part of China with 50% muslim population. I'm a big fan of Middle eastern food and culture.</p>
-        </div>
-        <div class = "facts">
-            <img src="images/shenzhen.jpg" alt="Shenzhen" width="300" height="200">
-            <p> I grew up in Shenzhen, lived in France for a year as an exchange student and now I'm in US. </p>
-        </div>
-        <h4><a href="https://www.linkedin.com/in/shiyue-zhang-58828b196">My linkedin</a></h4>
-        <h4><a href="https://github.com/zhangshyue">My github</a></h4>
+        <hr>
         <p>Click here to get a random message:</p>
         <button onclick="addRandomGreeting()">Hello</button>
         <div id="greeting-container"></div>

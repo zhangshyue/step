@@ -13,6 +13,7 @@ body,html {
     text-align: center;
     padding-top: 30vh;
     margin: 0;
+    font-weight: 410;
 }
 
 .invite-scroll {
@@ -68,10 +69,23 @@ h1 {
     transform: translate(-50%);
 }
 
+.line {
+    border: 0;
+    height: 0.75em;
+    background: #c66;
+    clear: both;
+    border-radius: 0.25em;
+    margin: auto;
+    width: 70%;
+    margin-top: 5.5em;
+    margin-bottom: 5.5em;
+}
+
 .carleton {
     width: 70%;
     margin: auto;
     margin-top: 3em;
+    margin-bottom: 2.5em;
 }
 
 .container {

@@ -5,7 +5,7 @@ body,html {
 }
 
 .title {
-    height:93vh;
+    height:97vh;
     background-color: #c66;
 }
 
@@ -15,7 +15,7 @@ svg.intro {
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 30px 50px -20px rgb(46, 6, 66);
+    box-shadow: 0 30px 50px -20px #222;
 }
 
 .go .text {
@@ -40,23 +40,23 @@ svg.intro {
     animation-delay: .3s;
 }
 .go .text-stroke:nth-child(3) {
-    animation-delay: .9s;
+    animation-delay: .8s;
 }
 .go .text-stroke:nth-child(4) {
-    animation-delay: 1.2s;
+    animation-delay: 1.1s;
 }
 .go .text-stroke-2 {
     stroke: #222;
-    animation-delay: 1.5s;
+    animation-delay: 1.3s;
 }
 .go .text-stroke:nth-child(6) {
-    animation-delay: 1.8s;
+    animation-delay: 1.6s;
 }
 .go .text-stroke:nth-child(7) {
-    animation-delay: 2.1s;
+    animation-delay: 1.8s;
 }
 .go  .text-stroke:nth-child(8) {
-    animation-delay: 2.4s;
+    animation-delay: 2.2s;
 }
 
 @keyframes dash {
@@ -67,7 +67,7 @@ svg.intro {
 
 
 .invite-scroll {
-    padding-top: calc(92vh - 100px);
+    padding-top: calc(95vh - 100px);
     text-align:center;
 }
 

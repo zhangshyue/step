@@ -65,7 +65,8 @@ window.onload = function() {
       new TxtRotate(elements[i], JSON.parse(toRotate), period);
     }
   }
-
 };
 
+window.sr = ScrollReveal({ reset: true });
+ScrollReveal().reveal('.row', { origin: 'right', duration: 2000 });
 

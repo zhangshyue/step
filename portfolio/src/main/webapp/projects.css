@@ -17,6 +17,10 @@ body {
     font-size: 2rem;
 }
 
+.project:nth-child(1) {
+    margin-top: 6em;
+}
+
 .project:nth-child(4) {
     margin-bottom: 2em;
 }

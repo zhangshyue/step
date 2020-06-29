@@ -17,18 +17,17 @@
  */
 class TxtRotate {
     constructor(el, toRotate, period) {
-    this.toRotate = toRotate;
-    this.el = el;
-    this.loopNum = 0;
-    this.period = parseInt(period, 10) || 2000;
-    this.txt = '';
-    this.isDeleting = false;
-    this.delta =300 - Math.random() * 100;
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.isDeleting = false;
+        this.delta =300 - Math.random() * 100;
     }
 
     tick() {
-        let i = this.loopNum % this.toRotate.length;
-        let fullTxt = this.toRotate[i];
+        const fullTxt = this.toRotate[0];
 
         if (this.isDeleting) {
             this.txt = fullTxt.substring(0, this.txt.length - 1);
@@ -53,7 +52,7 @@ class TxtRotate {
             delta = 1000;
         }
 
-        setTimeout(this.tick.bind(this), delta);
+        setTimeout(() => {this.tick();}, delta);
     }
 }
 
@@ -63,7 +62,7 @@ window.onload = function() {
     let toRotate = elements[i].getAttribute('data-rotate');
     let period = elements[i].getAttribute('data-period');
     if (toRotate) {
-      let rotate = new TxtRotate(elements[i], JSON.parse(toRotate), period);
+      const rotate = new TxtRotate(elements[i], JSON.parse(toRotate), period);
       rotate.tick();
     }
   }

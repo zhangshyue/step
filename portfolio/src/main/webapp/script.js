@@ -13,8 +13,14 @@
 // limitations under the License.
 
 /**
- * Adds a random greeting to the page.
+ * Fetches content from the server and adds it to the DOM.
  */
+function getContentFunctions() {
+  fetch('/data').then(response => response.text()).then((quote) => {
+    document.getElementById('quote-container').innerHTML = quote;
+  });
+}
+
 var TxtRotate = function(el, toRotate, period) {
   this.toRotate = toRotate;
   this.el = el;

@@ -36,7 +36,7 @@ svg.intro {
     animation: dash 0.8s ease-in-out forwards;
 }
 
-.go  .text-stroke:nth-child(2) {
+.go .text-stroke:nth-child(2) {
     animation-delay: .3s;
 }
 .go .text-stroke:nth-child(3) {
@@ -55,7 +55,7 @@ svg.intro {
 .go .text-stroke:nth-child(7) {
     animation-delay: 1.8s;
 }
-.go  .text-stroke:nth-child(8) {
+.go .text-stroke:nth-child(8) {
     animation-delay: 2.2s;
 }
 

@@ -13,6 +13,15 @@
 // limitations under the License.
 
 /**
+ * Fetches content from the server and adds it to the DOM.
+ */
+function getContentFunctions() {
+  fetch('/data').then(response => response.text()).then((quote) => {
+    document.getElementById('quote-container').innerHTML = quote;
+  });
+}
+
+/**
  * Add typing animation effect
  */
 class TxtRotate {

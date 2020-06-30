@@ -17,17 +17,14 @@
  */
 function getContentFunctions() {
     fetch('/data').then(response => response.text()).then((comments) => {
-        console.log(comments);
         comments = JSON.parse(comments);
-        console.log(comments);
         const statsListElement = document.getElementById('comment-container');
         statsListElement.innerHTML = '';
+
         for(let i = 0; i < comments.length; i++) {
-        let obj = comments[i];
-        statsListElement.appendChild(
-        createListElement(comments[i]));
-        console.log(obj);
-    }
+            statsListElement.appendChild(
+            createListElement(comments[i]));
+        }
   });
 }
 

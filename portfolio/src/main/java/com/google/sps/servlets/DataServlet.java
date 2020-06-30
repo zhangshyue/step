@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
     private List<DataStats> comments;
@@ -32,9 +32,6 @@ public class DataServlet extends HttpServlet {
     @Override
     public void init() {
         comments = new ArrayList<DataStats>();
-        comments.add(new DataStats("aaa", "I really like this website"));
-        comments.add(new DataStats("bbb","Love the design"));
-        comments.add(new DataStats("ccc","The js effect is cool"));
     }
 
     @Override
@@ -53,19 +50,16 @@ public class DataServlet extends HttpServlet {
         return json;
     }
 
-    // @Override
-    // public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //     // Get the input from the form.
-    //     ArrayList<String> new = new ArrayList<String>(); 
-    //     String name = getParameter(request, "name", "");
-    //     String comment = getParameter(request, "comment", "");
-    //     new.add(name);
-    //     new.add(comment);
-    //     comments.add(new);
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // Get the input from the form.
+        String name = getParameter(request, "name", "");
+        String comment = getParameter(request, "comment", "");
+        comments.add(new DataStats(name, comment));
 
-    //     // Redirect back to the HTML page.
-    //     response.sendRedirect("/index.html");
-    // }
+        // Redirect back to the HTML page.
+        response.sendRedirect("/index.html");
+    }
     /**
     * @return the request parameter, or the default value if the parameter
     *         was not specified by the client

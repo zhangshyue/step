@@ -52,15 +52,17 @@ class TxtRotate {
             delta = 1000;
         }
 
-        setTimeout(() => {this.tick();}, delta);
-    }
+        setTimeout(() => {
+                    this.tick();
+                    }, delta);
+                }
 }
 
 window.onload = function() {
   const elements = document.getElementsByClassName('txt-rotate');
   for (let i=0; i<elements.length; i++) {
-    let toRotate = elements[i].getAttribute('data-rotate');
-    let period = elements[i].getAttribute('data-period');
+    const toRotate = elements[i].getAttribute('data-rotate');
+    const period = elements[i].getAttribute('data-period');
     if (toRotate) {
       const rotate = new TxtRotate(elements[i], JSON.parse(toRotate), period);
       rotate.tick();

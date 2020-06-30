@@ -17,7 +17,9 @@
  */
 function getContentFunctions() {
     fetch('/data').then(response => response.text()).then((comments) => {
+        console.log(comments);
         comments = JSON.parse(comments);
+        console.log(comments);
         const statsListElement = document.getElementById('comment-container');
         statsListElement.innerHTML = '';
         for(let i = 0; i < comments.length; i++) {
@@ -32,7 +34,7 @@ function getContentFunctions() {
 /** Creates an <li> element containing text. */
 function createListElement(text) {
   const liElement = document.createElement('li');
-  liElement.innerText = text;
+  liElement.innerText = text.name+": "+text.comment;
   return liElement;
 }
 

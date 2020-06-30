@@ -14,7 +14,11 @@
 
 package com.google.sps.servlets;
 
+// import com.google.sps.data.ServerStats;
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,16 +31,27 @@ public class DataServlet extends HttpServlet {
 
     @Override
     public void init() {
-        quotes = new ArrayList<>();
-        quotes.add(
+        comments = new ArrayList<>();
+        comments.add(
             "I really like this website");
-        quotes.add("Love the design");
-        quotes.add("The js effect is cool");
+        comments.add("Love the design");
+        comments.add("The js effect is cool");
     }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html;");
-        response.getWriter().println("<h1>Hello Shiyue!</h1>");
+        String json = convertToJsonUsingGson(comments);
+        response.setContentType("application/json;");
+        response.getWriter().println(json);
+    }
+
+    /**
+    * Converts a ServerStats instance into a JSON string using the Gson library.
+    */
+    private String convertToJsonUsingGson(List<String> comments) {
+        Gson gson = new Gson();
+        String json = gson.toJson(comments);
+        return json;
     }
 }
+

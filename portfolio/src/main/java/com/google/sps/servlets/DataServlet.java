@@ -14,6 +14,12 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.sps.data.DataStats;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -27,15 +33,33 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-    private List<DataStats> comments;
+    // private List<DataStats> comments;
 
-    @Override
-    public void init() {
-        comments = new ArrayList<DataStats>();
-    }
+    // @Override
+    // public void init() {
+    //     comments = new ArrayList<DataStats>();
+    // }
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Query query = new Query("Entry").addSort("name", SortDirection.DESCENDING);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    List<DataStats> comments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      long id = entity.getKey().getId();
+      String name = (String) entity.getProperty("name");
+      String comment = (String) entity.getProperty("comment");
+      comments.add(new DataStats(name, comment));
+    }
+
+    // Gson gson = new Gson();
+
+    // response.setContentType("application/json;");
+    // response.getWriter().println(gson.toJson(tasks));
+
         String json = convertToJsonUsingGson(comments);
         response.setContentType("application/json;");
         response.getWriter().println(json);
@@ -55,10 +79,17 @@ public class DataServlet extends HttpServlet {
         // Get the input from the form.
         String name = getParameter(request, "name", "");
         String comment = getParameter(request, "comment", "");
-        comments.add(new DataStats(name, comment));
+        // comments.add(new DataStats(name, comment));
 
-        // Redirect back to the HTML page.
-        response.sendRedirect("/index.html");
+        Entity commentEntity = new Entity("Entry");
+        commentEntity.setProperty("name", name);
+        commentEntity.setProperty("comment", comment);
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        datastore.put(commentEntity);
+
+            // Redirect back to the HTML page.
+            response.sendRedirect("/index.html");
     }
     
     /**

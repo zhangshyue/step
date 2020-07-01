@@ -37,14 +37,14 @@ public class DataServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Query query = new Query("Entry").addSort("name", SortDirection.ASCENDING );
+        Query query = new Query("Entry").addSort("commentTime", SortDirection.DESCENDING);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
         Integer commentsNumber = Integer.parseInt(request.getParameter("number"));
         
         List<DataStats> comments = new ArrayList<>();
-        Integer num = 0;
+        int num = 0;
         for (Entity entity : results.asIterable()) {
             long id = entity.getKey().getId();
             String name = (String) entity.getProperty("name");
@@ -80,7 +80,7 @@ public class DataServlet extends HttpServlet {
         Entity commentEntity = new Entity("Entry");
         commentEntity.setProperty("name", name);
         commentEntity.setProperty("comment", comment);
-        commentEntity.setProperty("commentTime",currentTime);
+        commentEntity.setProperty("commentTime", currentTime);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(commentEntity);

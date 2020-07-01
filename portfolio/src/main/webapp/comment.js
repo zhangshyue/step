@@ -16,21 +16,20 @@
  * Fetches content from the server and adds it to the DOM.
  */
 function getContentFunctions() {
-    let num = document.querySelector('[name="number-comments"]').value;
+    const num = document.querySelector('[name="number-comments"]').value;
     
     // Check that the input is between 1 and 5.
     if(num > 5 || num < 0) {
-        document.getElementById('comment-container').innerHTML = "<h3>Number must be between 1 and 5!</h3>";
+        document.getElementById('comment-container').innerHTML = '<h3>Number must be between 1 and 5!</h3>';
         return;
     }
-    fetch('/data?number='+num).then(response => response.text()).then((comments) => {
+    fetch(`/data?number=${num}`).then(response => response.text()).then((comments) => {
         comments = JSON.parse(comments);
         const statsListElement = document.getElementById('comment-container');
         statsListElement.innerHTML = '';
 
         for(let i = 0; i < comments.length; i++) {
-            statsListElement.appendChild(
-            createListElement(comments[i]));
+            statsListElement.appendChild(createListElement(comments[i]));
         }
   });
 }
@@ -39,6 +38,10 @@ function getContentFunctions() {
 function createListElement(text) {
     const divElement = document.createElement('div');
     divElement.classList.add('card');
-    divElement.innerHTML = `<div class="card-body"><h5 class="card-title">${text.name}</h5><p class="card-text">${text.comment}</p><p class="card-text"><small class="text-muted">${text.commentTime}</small></p></div>`;
+    divElement.innerHTML = `<div class='card-body'>\
+                                <h5 class='card-title'>${text.name}</h5>\
+                                <p class='card-text'>${text.comment}</p>\
+                                <p class='card-text'><small class='text-muted'>${text.commentTime}</small></p>\
+                            </div>`;
     return divElement;
 }

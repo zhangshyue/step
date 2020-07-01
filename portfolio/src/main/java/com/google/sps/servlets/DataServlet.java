@@ -40,13 +40,7 @@ public class DataServlet extends HttpServlet {
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
-
         Integer commentsNumber = Integer.parseInt(request.getParameter("number"));
-        // if (commentsNumber < 1 || commentsNumber > 5) {
-        //     response.setContentType("text/html");
-        //     response.getWriter().println("Please enter an integer between 1 and 3.");
-        //     return;
-        // }
         
         List<DataStats> comments = new ArrayList<>();
         Integer num = 0;

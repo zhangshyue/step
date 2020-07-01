@@ -17,6 +17,10 @@
  */
 function getContentFunctions() {
     let num = document.querySelector('[name="number-comments"]').value;
+    if (num > 5 || num < 0) {
+        document.getElementById('comment-container').innerHTML = "<h3>Number must be between 1 and 5!</h3>";
+        return;
+    }
     fetch('/data?number='+num).then(response => response.text()).then((comments) => {
         console.log(comments);
         comments = JSON.parse(comments);

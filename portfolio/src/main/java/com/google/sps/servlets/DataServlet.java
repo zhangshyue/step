@@ -40,13 +40,25 @@ public class DataServlet extends HttpServlet {
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
+
+        Integer commentsNumber = Integer.parseInt(request.getParameter("number"));
+        // if (commentsNumber < 1 || commentsNumber > 5) {
+        //     response.setContentType("text/html");
+        //     response.getWriter().println("Please enter an integer between 1 and 3.");
+        //     return;
+        // }
         
         List<DataStats> comments = new ArrayList<>();
+        Integer num = 0;
         for (Entity entity : results.asIterable()) {
             long id = entity.getKey().getId();
             String name = (String) entity.getProperty("name");
             String comment = (String) entity.getProperty("comment");
             comments.add(new DataStats(name, comment));
+            num += 1;
+            if (num == commentsNumber) {
+                break;
+            }
         }
 
         String json = convertToJsonUsingGson(comments);

@@ -21,10 +21,12 @@ public final class DataStats {
 
   private final String name;
   private final String comment;
+  private final Date commentTime;
 
-  public DataStats(String name, String comment) {
+  public DataStats(String name, String comment, Date commentTime) {
     this.name = name;
     this.comment = comment;
+    this.commentTime = commentTime;
   }
 
   public String getName() {
@@ -33,5 +35,9 @@ public final class DataStats {
 
   public String getComment() {
     return comment;
+  }
+
+  public Date getCommentTime() {
+    return commentTime;
   }
 }

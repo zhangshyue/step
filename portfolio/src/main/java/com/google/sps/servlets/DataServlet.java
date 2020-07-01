@@ -23,6 +23,7 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.sps.data.DataStats;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
@@ -48,7 +49,8 @@ public class DataServlet extends HttpServlet {
             long id = entity.getKey().getId();
             String name = (String) entity.getProperty("name");
             String comment = (String) entity.getProperty("comment");
-            comments.add(new DataStats(name, comment));
+            Date commentTime = (Date) entity.getProperty("commentTime");
+            comments.add(new DataStats(name, comment,commentTime));
             num += 1;
             if (num == commentsNumber) {
                 break;
@@ -74,10 +76,12 @@ public class DataServlet extends HttpServlet {
         // Get the input from the form.
         String name = getParameter(request, "name", "");
         String comment = getParameter(request, "comment", "");
+        Date currentTime = new Date();
 
         Entity commentEntity = new Entity("Entry");
         commentEntity.setProperty("name", name);
         commentEntity.setProperty("comment", comment);
+        commentEntity.setProperty("commentTime",currentTime);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(commentEntity);

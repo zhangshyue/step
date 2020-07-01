@@ -25,6 +25,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/gallery.html">Gallery</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/comment.html">Comment</a>
+            </li>
             </ul>
         </div>
     </nav>
@@ -79,25 +82,6 @@
             </div>
         </div>
         <hr>
-    </div>
-    <div id="content">
-        <p>Choose number of comments to display and fetch comments:</p>
-        <input type="number" name="number-comments" min="1" max="5" value="1">
-        <button onclick="getContentFunctions() ">Fetch comments!</button>
-        <div id="comment-container"></div>
-        <form action="/data" method="POST">
-            <p>Enter comments for this webpage:</p>
-            <p>Name:</p>
-            <textarea name="name"></textarea>
-            <p>Comments:</p>
-            <textarea name="comment"></textarea>
-            <br/><br/>
-            <input type="submit" />
-        </form>
-        <p>Delete comments stored in Datastore:</p>
-        <form action="/delete-data" method="POST">
-            <input type="submit" value="Delete" />
-        </form>
     </div>
     <hr>
   </body>

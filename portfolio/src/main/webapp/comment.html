@@ -12,6 +12,25 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/index.html">Shiyue's Portfolio</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/projects.html">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/gallery.html">Gallery</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/comment.html">Comment</a>
+                </li>
+                </ul>
+            </div>
+        </nav>
         <div id="content" class="container">
             <h3>Enter comments for this webpage:</h3>
             <form action="/data" method="POST">
@@ -23,15 +42,17 @@
                     <label>Comment</label>
                 <textarea name="comment" class="form-control"></textarea>
                 </div>
-                <input type="submit" class="btn btn-primary" />
+                <input type="submit" class="btn" />
             </form>
+            <hr class="line m-5">
             <h3>Delete comments stored in Datastore:</h3>
             <form action="/delete-data" method="POST">
-                <input type="submit" value="Delete" class="btn btn-primary" />
+                <input type="submit" value="Delete" class="btn" />
             </form>
+            <hr class="line m-5">
             <h3>Choose number of comments to display and fetch comments:</h3>
             <input type="number" name="number-comments" min="1" max="5" value="1" class="form-control">
-            <button onclick="getContentFunctions()" class="btn btn-primary">Fetch comments!</button>
+            <button onclick="getContentFunctions()" class="btn">Fetch comments!</button>
             <div id="comment-container"></div>
         </div>
     </body>

@@ -41,6 +41,6 @@ function createListElement(text) {
   const liElement = document.createElement('div');
   liElement.classList.add('card');
 //   liElement.innerText = text.name+": "+text.comment+", "+text.commentTime;
-  liElement.innerHTML = `<div class="card-body"><h5 class="card-title">${text.name}</h5><p class="card-text">${text.comment}</p></div>`;
+  liElement.innerHTML = `<div class="card-body"><h5 class="card-title">${text.name}</h5><p class="card-text">${text.comment}</p><p class="card-text"><small class="text-muted">${text.commentTime}</small></p></div>`;
   return liElement;
 }

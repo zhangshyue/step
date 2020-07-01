@@ -24,6 +24,7 @@ function getContentFunctions() {
         return;
     }
     fetch(`/data?number=${num}`).then(response => response.text()).then((comments) => {
+        console.log(comments);
         comments = JSON.parse(comments);
         const statsListElement = document.getElementById('comment-container');
         statsListElement.innerHTML = '';
@@ -41,7 +42,10 @@ function createListElement(text) {
     divElement.innerHTML = `<div class='card-body'>\
                                 <h5 class='card-title'>${text.name}</h5>\
                                 <p class='card-text'>${text.comment}</p>\
-                                <p class='card-text'><small class='text-muted'>${text.commentTime}</small></p>\
+                                <div class = 'row'>\
+                                <p class='card-text col-6'><small class='text-muted'>${text.commentTime}</small></p>\
+                                <p class='card-text col-6'><small class='text-muted upvote'><button type='button' class='btn'>Upvote</button> ${text.upvote}</small></p>\
+                                </div>\
                             </div>`;
     return divElement;
 }

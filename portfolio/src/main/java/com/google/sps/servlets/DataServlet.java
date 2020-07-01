@@ -50,7 +50,8 @@ public class DataServlet extends HttpServlet {
             String name = (String) entity.getProperty("name");
             String comment = (String) entity.getProperty("comment");
             Date commentTime = (Date) entity.getProperty("commentTime");
-            comments.add(new DataStats(name, comment,commentTime));
+            int upvote = ((Long) entity.getProperty("upvote")).intValue();
+            comments.add(new DataStats(name, comment,commentTime, upvote));
             num += 1;
             if (num == commentsNumber) {
                 break;
@@ -81,6 +82,7 @@ public class DataServlet extends HttpServlet {
         commentEntity.setProperty("name", name);
         commentEntity.setProperty("comment", comment);
         commentEntity.setProperty("commentTime", currentTime);
+        commentEntity.setProperty("upvote", 0);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(commentEntity);

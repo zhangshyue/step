@@ -22,11 +22,13 @@ public final class DataStats {
   private final String name;
   private final String comment;
   private final Date commentTime;
+  private final int upvote;
 
-  public DataStats(String name, String comment, Date commentTime) {
+  public DataStats(String name, String comment, Date commentTime, int upvote) {
     this.name = name;
     this.comment = comment;
     this.commentTime = commentTime;
+    this.upvote = upvote;
   }
 
   public String getName() {
@@ -39,5 +41,9 @@ public final class DataStats {
 
   public Date getCommentTime() {
     return commentTime;
+  }
+
+  public int getUpvote() {
+    return upvote;
   }
 }

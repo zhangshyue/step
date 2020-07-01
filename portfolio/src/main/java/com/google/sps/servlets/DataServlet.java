@@ -74,7 +74,7 @@ public class DataServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Get the input from the form.
-        String name = getParameter(request, "name", "");
+        String name = getParameter(request, "name", "Anonymous");
         String comment = getParameter(request, "comment", "");
         Date currentTime = new Date();
 

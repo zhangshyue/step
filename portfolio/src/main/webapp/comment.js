@@ -38,7 +38,9 @@ function getContentFunctions() {
 
 /** Creates an <li> element containing text. */
 function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text.name+": "+text.comment+", "+text.commentTime;
+  const liElement = document.createElement('div');
+  liElement.classList.add('card');
+//   liElement.innerText = text.name+": "+text.comment+", "+text.commentTime;
+  liElement.innerHTML = `<div class="card-body"><h5 class="card-title">${text.name}</h5><p class="card-text">${text.comment}</p></div>`;
   return liElement;
 }

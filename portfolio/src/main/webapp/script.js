@@ -16,7 +16,8 @@
  * Fetches content from the server and adds it to the DOM.
  */
 function getContentFunctions() {
-    fetch('/data?number=5').then(response => response.text()).then((comments) => {
+    let num = document.querySelector('[name="number-comments"]').value;
+    fetch('/data?number='+num).then(response => response.text()).then((comments) => {
         console.log(comments);
         comments = JSON.parse(comments);
         const statsListElement = document.getElementById('comment-container');

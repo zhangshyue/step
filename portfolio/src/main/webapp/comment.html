@@ -12,24 +12,27 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div id="content">
-            <p>Choose number of comments to display and fetch comments:</p>
-            <input type="number" name="number-comments" min="1" max="5" value="1">
-            <button onclick="getContentFunctions() ">Fetch comments!</button>
-            <div id="comment-container"></div>
+        <div id="content" class="container">
+            <h3>Enter comments for this webpage:</h3>
             <form action="/data" method="POST">
-                <p>Enter comments for this webpage:</p>
-                <p>Name:</p>
-                <textarea name="name"></textarea>
-                <p>Comments:</p>
-                <textarea name="comment"></textarea>
-                <br/><br/>
-                <input type="submit" />
+                <div class="form-group">
+                    <label>Name</label>
+                    <textarea name="name" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Comment</label>
+                <textarea name="comment" class="form-control"></textarea>
+                </div>
+                <input type="submit" class="btn btn-primary" />
             </form>
-            <p>Delete comments stored in Datastore:</p>
+            <h3>Delete comments stored in Datastore:</h3>
             <form action="/delete-data" method="POST">
-                <input type="submit" value="Delete" />
+                <input type="submit" value="Delete" class="btn btn-primary" />
             </form>
+            <h3>Choose number of comments to display and fetch comments:</h3>
+            <input type="number" name="number-comments" min="1" max="5" value="1" class="form-control">
+            <button onclick="getContentFunctions()" class="btn btn-primary">Fetch comments!</button>
+            <div id="comment-container"></div>
         </div>
     </body>
 </html>

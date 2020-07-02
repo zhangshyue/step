@@ -52,6 +52,11 @@ function createListElement(text) {
 
     const upvoteButtonElement = document.createElement('button');
     upvoteButtonElement.innerText = 'Upvote';
+    // upvoteButtonElement.addEventListener('click', () => {
+    //     deleteTask(task);
+    //     // Remove the task from the DOM.
+    //     taskElement.remove();
+    // });
 
     upvoteElement.appendChild(upvoteButtonElement);
     cardBodyElement.appendChild(upvoteElement);

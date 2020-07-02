@@ -39,13 +39,27 @@ function getContentFunctions() {
 function createListElement(text) {
     const divElement = document.createElement('div');
     divElement.classList.add('card');
-    divElement.innerHTML = `<div class='card-body'>\
-                                <h5 class='card-title'>${text.name}</h5>\
+
+    const cardBodyElement = document.createElement('div');
+    cardBodyElement.classList.add('card-body');
+    cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
                                 <p class='card-text'>${text.comment}</p>\
-                                <div class = 'row'>\
-                                <p class='card-text col-6'><small class='text-muted'>${text.commentTime}</small></p>\
-                                <p class='card-text col-6'><small class='text-muted upvote'><button type='button' class='btn'>Upvote</button> ${text.upvote}</small></p>\
-                                </div>\
-                            </div>`;
+                                <p class='card-text'><small class='text-muted'>${text.commentTime}</small></p>`;
+                                // <p class='card-text'><small class='text-muted upvote'><button onclick='updateUpvote(5)' type='button' class='btn'>Upvote</button> ${text.upvote}</small></p>
+    const upvoteElement = document.createElement('p');
+    upvoteElement.classList.add('card-text');
+    upvoteElement.innerHTML=`${text.upvote}`
+
+    const upvoteButtonElement = document.createElement('button');
+    upvoteButtonElement.innerText = 'Upvote';
+
+    upvoteElement.appendChild(upvoteButtonElement);
+    cardBodyElement.appendChild(upvoteElement);
+    divElement.appendChild(cardBodyElement);
+
     return divElement;
 }
+
+// function updateUpvote(number) {
+
+// }

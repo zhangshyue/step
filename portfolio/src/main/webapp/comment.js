@@ -24,19 +24,18 @@ function getContentFunctions() {
         return;
     }
     fetch(`/data?number=${num}`).then(response => response.text()).then((comments) => {
-        console.log(comments);
         comments = JSON.parse(comments);
         const statsListElement = document.getElementById('comment-container');
         statsListElement.innerHTML = '';
 
         for(let i = 0; i < comments.length; i++) {
-            statsListElement.appendChild(createListElement(comments[i]));
+            statsListElement.appendChild(createListElement(comments[i], i));
         }
   });
 }
 
-/** Creates an <div> element containing text. */
-function createListElement(text) {
+/** Creates an <div> element containing comment contents. */
+function createListElement(text, num) {
     const divElement = document.createElement('div');
     divElement.classList.add('card');
 
@@ -45,18 +44,17 @@ function createListElement(text) {
     cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
                                 <p class='card-text'>${text.comment}</p>\
                                 <p class='card-text'><small class='text-muted'>${text.commentTime}</small></p>`;
-                                // <p class='card-text'><small class='text-muted upvote'><button onclick='updateUpvote(5)' type='button' class='btn'>Upvote</button> ${text.upvote}</small></p>
+
     const upvoteElement = document.createElement('p');
     upvoteElement.classList.add('card-text');
-    upvoteElement.innerHTML=`${text.upvote}`
+    upvoteElement.innerHTML=`<span class='num-upvote ${num}'>${text.upvote}</span>`
 
     const upvoteButtonElement = document.createElement('button');
+    upvoteButtonElement.classList.add('mx-3','btn');
     upvoteButtonElement.innerText = 'Upvote';
-    // upvoteButtonElement.addEventListener('click', () => {
-    //     deleteTask(task);
-    //     // Remove the task from the DOM.
-    //     taskElement.remove();
-    // });
+    upvoteButtonElement.addEventListener('click', () => {
+        updateUpvote(text, num);
+    });
 
     upvoteElement.appendChild(upvoteButtonElement);
     cardBodyElement.appendChild(upvoteElement);
@@ -65,6 +63,12 @@ function createListElement(text) {
     return divElement;
 }
 
-// function updateUpvote(number) {
-
-// }
+/** Update the number of upvotes of the comment that is been upvoted. */
+function updateUpvote(text, num) {
+    const params = new URLSearchParams();
+    params.append('id', text.id);
+    fetch('/update-upvote', {method: 'POST', body: params});
+    const currentText = document.getElementsByClassName(num)[0].innerText;
+    const nextText = parseInt(currentText) + 1;
+    document.getElementsByClassName(num)[0].innerText = nextText;
+}

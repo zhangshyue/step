@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteDataServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Query query = new Query("Entry").addSort("name", SortDirection.ASCENDING );
+        Query query = new Query("Entry");
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);

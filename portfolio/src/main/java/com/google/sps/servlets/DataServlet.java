@@ -45,7 +45,7 @@ public class DataServlet extends HttpServlet {
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
-        Integer commentsNumber = Integer.parseInt(request.getParameter("number"));
+        int commentsNumber = Integer.parseInt(request.getParameter("number"));
         
         List<DataStats> comments = new ArrayList<>();
         int num = 0;

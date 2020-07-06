@@ -19,7 +19,7 @@ function getContentFunctions() {
     const num = document.querySelector('[name="number-comments"]').value;
     
     // Check that the input is between 1 and 5.
-    if(num > 5 || num < 0) {
+    if (num > 5 || num < 0) {
         document.getElementById('comment-container').innerHTML = '<h3>Number must be between 1 and 5!</h3>';
         return;
     }
@@ -67,10 +67,11 @@ function createListElement(text, num) {
 function updateUpvote(text, num) {
     const params = new URLSearchParams();
     params.append('id', text.id);
-    fetch('/update-upvote', {method: 'POST', body: params});
-    const currentText = document.getElementsByClassName(num)[0].innerText;
-    const nextText = parseInt(currentText) + 1;
-    document.getElementsByClassName(num)[0].innerText = nextText;
+    fetch('/update-upvote', {method: 'POST', body: params}).then(() => {
+        const currentText = document.getElementsByClassName(num)[0].innerText;
+        const nextText = parseInt(currentText) + 1;
+        document.getElementsByClassName(num)[0].innerText = nextText;
+    });
 }
 
 function checkLogin() {
@@ -87,7 +88,6 @@ function checkLogin() {
             const accountElement = document.getElementsByClassName('account')[0];
             accountElement.innerText = 'Login';
             accountElement.href = status[1];
-        }
-        
+        } 
   });
 }

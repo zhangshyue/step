@@ -41,7 +41,7 @@ public class UpvoteServlet extends HttpServlet {
             int upvote = Integer.parseInt(commentEntity.getProperty("upvote").toString()) + 1;
             commentEntity.setProperty("upvote", upvote);
             datastore.put(commentEntity);
-        }catch (EntityNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             return;
         }
     }

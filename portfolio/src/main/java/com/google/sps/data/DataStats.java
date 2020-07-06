@@ -13,7 +13,6 @@
 // limitations under the License.
 
 package com.google.sps.data;
-import com.google.appengine.api.datastore.Key;
 
 import java.util.Date;
 

@@ -52,7 +52,7 @@ public class DataServlet extends HttpServlet {
             String comment = (String) entity.getProperty("comment");
             Date commentTime = (Date) entity.getProperty("commentTime");
             int upvote = ((Long) entity.getProperty("upvote")).intValue();
-            comments.add(new DataStats(name, comment,commentTime, upvote, id));
+            comments.add(new DataStats(name, comment, commentTime, upvote, id));
             num += 1;
             if (num == commentsNumber) {
                 break;

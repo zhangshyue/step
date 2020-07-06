@@ -18,7 +18,10 @@ import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
+import com.google.gson.Gson;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.ArrayList;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,33 +30,49 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/account")
 public class AccountServlet extends HttpServlet {
 
+    private List<String> status;
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html");
     PrintWriter out = response.getWriter();
     UserService userService = UserServiceFactory.getUserService();
+    status = new ArrayList<>();
 
     // If user is not logged in, show a login form (could also redirect to a login page)
     if (!userService.isUserLoggedIn()) {
-      String loginUrl = userService.createLoginURL("/account");
-      out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+    //   String loginUrl = userService.createLoginURL("/account");
+    //   out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+      response.setContentType("text/html;");
+    response.getWriter().println("Not login");
+      return;
+    }else{
+        String logoutUrl = userService.createLogoutURL("/account");
+        Gson gson = new Gson();
+        status.add("Login");
+        status.add(logoutUrl);
+    String json = gson.toJson(status);
+        response.setContentType("application/json;");
+    response.getWriter().println(json);
+    //     response.setContentType("text/html;");
+    // response.getWriter().println("Login");
       return;
     }
 
     // If user has not set a username, redirect to username page
-    String username = getUserUsername(userService.getCurrentUser().getUserId());
-    if (username == null) {
-      response.sendRedirect("/username");
-      return;
-    }
+    // String username = getUserUsername(userService.getCurrentUser().getUserId());
+    // if (username == null) {
+    //   response.sendRedirect("/username");
+    //   return;
+    // }
 
-    // User is logged in and has a username, so the request can proceed
-    String logoutUrl = userService.createLogoutURL("/account");
-    out.println("<h1>Home</h1>");
-    out.println("<p>Hello " + username + "!</p>");
-    out.println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
-    out.println("<p>Change your username <a href=\"/username\">here</a>.</p>");
-    out.println("<p>Get to comments <a href=\"/comment.html\">here</a>.</p>");
+    // // User is logged in and has a username, so the request can proceed
+    // String logoutUrl = userService.createLogoutURL("/account");
+    // out.println("<h1>Home</h1>");
+    // out.println("<p>Hello " + username + "!</p>");
+    // out.println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
+    // out.println("<p>Change your username <a href=\"/username\">here</a>.</p>");
+    // out.println("<p>Get to comments <a href=\"/comment.html\">here</a>.</p>");
   }
 
   /** Returns the username of the user with id, or null if the user has not set a username. */

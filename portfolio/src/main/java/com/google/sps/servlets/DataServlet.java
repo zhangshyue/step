@@ -77,22 +77,22 @@ public class DataServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        UserService userService = UserServiceFactory.getUserService();
-            // If user is not logged in, show a login form (could also redirect to a login page)
-        if (!userService.isUserLoggedIn()) {
-            // String loginUrl = userService.createLoginURL("/username");
-            // out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
-            response.sendRedirect("/account");
-            return;
-        }
-        String username = getUserUsername(userService.getCurrentUser().getUserId());
+        // response.setContentType("text/html");
+        // PrintWriter out = response.getWriter();
+        // UserService userService = UserServiceFactory.getUserService();
+        //     // If user is not logged in, show a login form (could also redirect to a login page)
+        // if (!userService.isUserLoggedIn()) {
+        //     // String loginUrl = userService.createLoginURL("/username");
+        //     // out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+        //     response.sendRedirect("/account");
+        //     return;
+        // }
+        // String username = getUserUsername(userService.getCurrentUser().getUserId());
    
 
         // Get the input from the form.
-        // String name = getParameter(request, "name", "Anonymous");
-        String name = username;
+        String name = getParameter(request, "name", "Anonymous");
+        // String name = username;
         String comment = getParameter(request, "comment", "");
         Date currentTime = new Date();
 

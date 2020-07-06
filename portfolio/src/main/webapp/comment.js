@@ -72,3 +72,16 @@ function updateUpvote(text, num) {
     const nextText = parseInt(currentText) + 1;
     document.getElementsByClassName(num)[0].innerText = nextText;
 }
+
+function checkLogin() {
+    fetch(`/account`).then(response => response.text()).then((status) => {
+        // let status = JSON.parse(comments);
+        console.log(status)
+        // if (status === "Login") {
+        //     const accountElement = document.getElementByClassName('account');
+        //     accountElement.innerText = 'Logout';
+            // accountElement.href = 
+        // }
+        
+  });
+}

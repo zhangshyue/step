@@ -76,12 +76,18 @@ function updateUpvote(text, num) {
 function checkLogin() {
     fetch(`/account`).then(response => response.text()).then((status) => {
         // let status = JSON.parse(comments);
-        console.log(status)
-        // if (status === "Login") {
-        //     const accountElement = document.getElementByClassName('account');
-        //     accountElement.innerText = 'Logout';
-            // accountElement.href = 
-        // }
+        console.log(status);
+        status = JSON.parse(status);
+        console.log(status[0]);
+        if (status === "Login") {
+            const accountElement = document.getElementsByClassName('account')[0];
+            accountElement.innerText = 'Logout';
+            accountElement.href = status[1];
+        } else {
+            const accountElement = document.getElementsByClassName('account')[0];
+            accountElement.innerText = 'Login';
+            accountElement.href = status[1];
+        }
         
   });
 }

@@ -1,0 +1,18 @@
+#content {
+    margin-top: 5em;
+}
+
+.line {
+    border: 0;
+    height: 0.75em;
+    background: #c66;
+    clear: both;
+    border-radius: 0.25em;
+    max-width: 1000px;
+}
+
+.btn {
+    color: #fff;
+    background-color: #666;
+    border-color: #666;
+}

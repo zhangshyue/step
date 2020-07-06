@@ -13,29 +13,6 @@
 // limitations under the License.
 
 /**
- * Fetches content from the server and adds it to the DOM.
- */
-function getContentFunctions() {
-    fetch('/data').then(response => response.text()).then((comments) => {
-        comments = JSON.parse(comments);
-        const statsListElement = document.getElementById('comment-container');
-        statsListElement.innerHTML = '';
-
-        for(let i = 0; i < comments.length; i++) {
-            statsListElement.appendChild(
-            createListElement(comments[i]));
-        }
-  });
-}
-
-/** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = `${text.name}: ${text.comment}`;
-  return liElement;
-}
-
-/**
  * Add typing animation effect
  */
 class TxtRotate {

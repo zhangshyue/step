@@ -47,7 +47,7 @@ function createListElement(text, num) {
 
     const upvoteElement = document.createElement('p');
     upvoteElement.classList.add('card-text');
-    upvoteElement.innerHTML=`<span class='num-upvote ${num}'>${text.upvote}</span>`
+    upvoteElement.innerHTML=`<span class='num-upvote ${num}'>${text.upvote}</span>`;
 
     const upvoteButtonElement = document.createElement('button');
     upvoteButtonElement.classList.add('mx-3','btn');

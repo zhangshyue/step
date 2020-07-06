@@ -67,8 +67,10 @@ function createListElement(text, num) {
 function updateUpvote(text, num) {
     const params = new URLSearchParams();
     params.append('id', text.id);
-    fetch('/update-upvote', {method: 'POST', body: params});
-    const currentText = document.getElementsByClassName(num)[0].innerText;
-    const nextText = parseInt(currentText) + 1;
-    document.getElementsByClassName(num)[0].innerText = nextText;
+    // const params = {'id': text.id};
+    fetch('/update-upvote', {method: 'POST', body: params}).then(() => {
+        const currentText = document.getElementsByClassName(num)[0].innerText;
+        const nextText = parseInt(currentText) + 1;
+        document.getElementsByClassName(num)[0].innerText = nextText;
+    });
 }

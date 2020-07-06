@@ -80,14 +80,19 @@ function checkLogin() {
         console.log(status);
         status = JSON.parse(status);
         console.log(status[0]);
-        if (status === "Login") {
-            const accountElement = document.getElementsByClassName('account')[0];
-            accountElement.innerText = 'Logout';
-            accountElement.href = status[1];
+        if (status[0] === "Login") {
+            // const accountElement = document.getElementsByClassName('account')[0];
+            // accountElement.innerText = 'Logout';
+            const accountElement = document.getElementsByClassName('dropdown-menu')[0];
+            accountElement.innerHTML = `<a class='dropdown-item' href=${status[1]}>Logout</a>\
+                                        <a class='dropdown-item' href=${status[2]}>Set Username</a>`;
+            // accountElement.href = status[1];
         } else {
-            const accountElement = document.getElementsByClassName('account')[0];
-            accountElement.innerText = 'Login';
-            accountElement.href = status[1];
+            // const accountElement = document.getElementsByClassName('account')[0];
+            // accountElement.innerText = 'Login';
+            // accountElement.href = status[1];
+            const accountElement = document.getElementsByClassName('dropdown-menu')[0];
+            accountElement.innerHTML = `<a class='dropdown-item' href=${status[1]}>Login</a>`;
         } 
   });
 }

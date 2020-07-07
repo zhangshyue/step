@@ -14,6 +14,15 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.blobstore.BlobInfo;
+import com.google.appengine.api.blobstore.BlobInfoFactory;
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.ServingUrlOptions;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -29,7 +38,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.ArrayList;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +67,10 @@ public class DataServlet extends HttpServlet {
             String comment = (String) entity.getProperty("comment");
             Date commentTime = (Date) entity.getProperty("commentTime");
             int upvote = ((Long) entity.getProperty("upvote")).intValue();
-            comments.add(new DataStats(name, comment, commentTime, upvote, id));
+
+            String imgUrl = (String) entity.getProperty("imgUrl");
+
+            comments.add(new DataStats(name, comment, commentTime, upvote, id, imgUrl));
             num += 1;
             if (num == commentsNumber) {
                 break;
@@ -89,12 +104,17 @@ public class DataServlet extends HttpServlet {
         String name = username;
         String comment = getParameter(request, "comment", "");
         Date currentTime = new Date();
+        // Get the URL of the image that the user uploaded to Blobstore.
+        String imageUrl = getUploadedFileUrl(request, "image");
+        System.out.println(imageUrl);
 
         Entity commentEntity = new Entity("Entry");
         commentEntity.setProperty("name", name);
         commentEntity.setProperty("comment", comment);
         commentEntity.setProperty("commentTime", currentTime);
         commentEntity.setProperty("upvote", 0);
+
+        commentEntity.setProperty("imgUrl", imageUrl);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(commentEntity);
@@ -114,18 +134,56 @@ public class DataServlet extends HttpServlet {
         return value;
     }
 
-    /** Returns the username of the user with id, or null if the user has not set a username. */
-  private String getUserUsername(String id) {
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query("UserInfo").setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
-    PreparedQuery results = datastore.prepare(query);
-    Entity entity = results.asSingleEntity();
-    if (entity == null) {
-      return null;
+        /** Returns the username of the user with id, or null if the user has not set a username. */
+    private String getUserUsername(String id) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        Query query = new Query("UserInfo").setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
+        PreparedQuery results = datastore.prepare(query);
+        Entity entity = results.asSingleEntity();
+        if (entity == null) {
+        return null;
+        }
+        String username = (String) entity.getProperty("username");
+        return username;
     }
-    String username = (String) entity.getProperty("username");
-    return username;
-  }
+
+    /** Returns a URL that points to the uploaded file, or null if the user didn't upload a file. */
+    private String getUploadedFileUrl(HttpServletRequest request, String formInputElementName) {
+        BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+        Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
+        List<BlobKey> blobKeys = blobs.get("image");
+
+        // User submitted form without selecting a file, so we can't get a URL. (dev server)
+        if (blobKeys == null || blobKeys.isEmpty()) {
+        return null;
+        }
+
+        // Our form only contains a single file input, so get the first index.
+        BlobKey blobKey = blobKeys.get(0);
+
+        // User submitted form without selecting a file, so we can't get a URL. (live server)
+        BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
+        if (blobInfo.getSize() == 0) {
+        blobstoreService.delete(blobKey);
+        return null;
+        }
+
+        // We could check the validity of the file here, e.g. to make sure it's an image file
+        // https://stackoverflow.com/q/10779564/873165
+
+        // Use ImagesService to get a URL that points to the uploaded file.
+        ImagesService imagesService = ImagesServiceFactory.getImagesService();
+        ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
+
+        // To support running in Google Cloud Shell with AppEngine's devserver, we must use the relative
+        // path to the image, rather than the path returned by imagesService which contains a host.
+        try {
+        URL url = new URL(imagesService.getServingUrl(options));
+        return url.getPath();
+        } catch (MalformedURLException e) {
+        return imagesService.getServingUrl(options);
+        }
+    }
 }
 
 

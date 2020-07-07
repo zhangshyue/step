@@ -99,7 +99,6 @@ public class DataServlet extends HttpServlet {
             return;
         }
         String username = getUserUsername(userService.getCurrentUser().getUserId());
-   
         // Get the input from the form.
         String name = username;
         String comment = getParameter(request, "comment", "");

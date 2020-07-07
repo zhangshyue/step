@@ -22,7 +22,6 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
-
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -67,7 +66,6 @@ public class DataServlet extends HttpServlet {
             String comment = (String) entity.getProperty("comment");
             Date commentTime = (Date) entity.getProperty("commentTime");
             int upvote = ((Long) entity.getProperty("upvote")).intValue();
-
             String imgUrl = (String) entity.getProperty("imgUrl");
 
             comments.add(new DataStats(name, comment, commentTime, upvote, id, imgUrl));
@@ -135,7 +133,7 @@ public class DataServlet extends HttpServlet {
         return value;
     }
 
-        /** Returns the username of the user with id, or null if the user has not set a username. */
+    /** Returns the username of the user with id, or null if the user has not set a username. */
     private String getUserUsername(String id) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         Query query = new Query("UserInfo").setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));

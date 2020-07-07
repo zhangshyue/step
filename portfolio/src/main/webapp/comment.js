@@ -46,7 +46,7 @@ function createListElement(text, num) {
         cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
                                     <p class='card-text text-muted'>${text.commentTime}</p>\
                                     <div>\
-                                        <img class="card-img-top rounded-0" src='${text.imgUrl}'>\
+                                        <img class='card-img-top rounded-0' src='${text.imgUrl}'>\
                                     </div>\
                                     <p class='card-text'>${text.comment}</p>`;
     } else {
@@ -103,8 +103,7 @@ function checkLogin() {
 function fetchBlobstoreUrlAndShowForm() {
     fetch('/blobstore-upload-url').then((response) => {
             return response.text();
-        })
-        .then((imageUploadUrl) => {
+        }).then((imageUploadUrl) => {
             const messageForm = document.getElementById('comment-form');
             messageForm.action = imageUploadUrl;
             messageForm.classList.remove('d-none');

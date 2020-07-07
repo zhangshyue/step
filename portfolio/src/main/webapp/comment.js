@@ -36,17 +36,24 @@ function getContentFunctions() {
 
 /** Creates an <div> element containing comment contents. */
 function createListElement(text, num) {
+    console.log(text);
     const divElement = document.createElement('div');
     divElement.classList.add('card');
 
     const cardBodyElement = document.createElement('div');
     cardBodyElement.classList.add('card-body');
-    cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
-                                <p class='card-text text-muted'>${text.commentTime}</p>\
-                                <div>\
-                                    <img class="card-img-top rounded-0" src='${text.imgUrl}'>\
-                                </div>\
-                                <p class='card-text'>${text.comment}</p>`;
+    if (text.imgUrl) {
+        cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
+                                    <p class='card-text text-muted'>${text.commentTime}</p>\
+                                    <div>\
+                                        <img class="card-img-top rounded-0" src='${text.imgUrl}'>\
+                                    </div>\
+                                    <p class='card-text'>${text.comment}</p>`;
+    } else {
+        cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
+                                    <p class='card-text text-muted'>${text.commentTime}</p>\
+                                    <p class='card-text'>${text.comment}</p>`;
+    }
 
     const upvoteElement = document.createElement('p');
     upvoteElement.classList.add('card-text');

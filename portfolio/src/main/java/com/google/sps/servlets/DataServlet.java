@@ -93,26 +93,28 @@ public class DataServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserService userService = UserServiceFactory.getUserService();
+
         // If user is not logged in, show a login form 
         if (!userService.isUserLoggedIn()) {
             response.sendRedirect("/username");
             return;
         }
         String username = getUserUsername(userService.getCurrentUser().getUserId());
+
         // Get the input from the form.
         String name = username;
         String comment = getParameter(request, "comment", "");
         Date currentTime = new Date();
-        // Get the URL of the image that the user uploaded to Blobstore.
         String imageUrl = getUploadedFileUrl(request, "image");
-        System.out.println(imageUrl);
+        if (imageUrl == null) {
+            imageUrl = "";
+        }
 
         Entity commentEntity = new Entity("Entry");
         commentEntity.setProperty("name", name);
         commentEntity.setProperty("comment", comment);
         commentEntity.setProperty("commentTime", currentTime);
         commentEntity.setProperty("upvote", 0);
-
         commentEntity.setProperty("imgUrl", imageUrl);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -128,7 +130,7 @@ public class DataServlet extends HttpServlet {
     private String getParameter(HttpServletRequest request, String name, String defaultValue) {
         String value = request.getParameter(name);
         if (value == null) {
-        return defaultValue;
+            return defaultValue;
         }
         return value;
     }
@@ -140,7 +142,7 @@ public class DataServlet extends HttpServlet {
         PreparedQuery results = datastore.prepare(query);
         Entity entity = results.asSingleEntity();
         if (entity == null) {
-        return null;
+            return null;
         }
         String username = (String) entity.getProperty("username");
         return username;
@@ -154,21 +156,18 @@ public class DataServlet extends HttpServlet {
 
         // User submitted form without selecting a file, so we can't get a URL. (dev server)
         if (blobKeys == null || blobKeys.isEmpty()) {
-        return null;
+            return null;
         }
 
         // Our form only contains a single file input, so get the first index.
         BlobKey blobKey = blobKeys.get(0);
 
         // User submitted form without selecting a file, so we can't get a URL. (live server)
-        BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
-        if (blobInfo.getSize() == 0) {
-        blobstoreService.delete(blobKey);
-        return null;
-        }
-
-        // We could check the validity of the file here, e.g. to make sure it's an image file
-        // https://stackoverflow.com/q/10779564/873165
+        // BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
+        // if (blobInfo.getSize() == 0) {
+        //     blobstoreService.delete(blobKey);
+        //     return null;
+        // }
 
         // Use ImagesService to get a URL that points to the uploaded file.
         ImagesService imagesService = ImagesServiceFactory.getImagesService();
@@ -177,10 +176,10 @@ public class DataServlet extends HttpServlet {
         // To support running in Google Cloud Shell with AppEngine's devserver, we must use the relative
         // path to the image, rather than the path returned by imagesService which contains a host.
         try {
-        URL url = new URL(imagesService.getServingUrl(options));
-        return url.getPath();
+            URL url = new URL(imagesService.getServingUrl(options));
+            return url.getPath();
         } catch (MalformedURLException e) {
-        return imagesService.getServingUrl(options);
+            return imagesService.getServingUrl(options);
         }
     }
 }

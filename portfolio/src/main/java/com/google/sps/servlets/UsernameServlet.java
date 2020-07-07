@@ -37,7 +37,7 @@ public class UsernameServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.println("<h1>Set Username</h1>");
-        // Form that set username
+        // Create a form that can set username
         UserService userService = UserServiceFactory.getUserService();
         if (userService.isUserLoggedIn()) {
             out.println("<p>Set your username here:</p>");

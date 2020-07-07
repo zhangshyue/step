@@ -32,43 +32,43 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/username")
 public class UsernameServlet extends HttpServlet {
 
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html");
-    PrintWriter out = response.getWriter();
-    out.println("<h1>Set Username</h1>");
-    // Form that set username
-    UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserLoggedIn()) {
-      out.println("<p>Set your username here:</p>");
-      out.println("<form method=\"POST\" action=\"/username\">");
-      out.println("<input name=\"username\" />");
-      out.println("<br/>");
-      out.println("<button>Submit</button>");
-      out.println("</form>");
-    } else {
-      String loginUrl = userService.createLoginURL("/username");
-      out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
-    }
-  }
-
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    UserService userService = UserServiceFactory.getUserService();
-    if (!userService.isUserLoggedIn()) {
-      response.sendRedirect("/username");
-      return;
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<h1>Set Username</h1>");
+        // Form that set username
+        UserService userService = UserServiceFactory.getUserService();
+        if (userService.isUserLoggedIn()) {
+        out.println("<p>Set your username here:</p>");
+        out.println("<form method=\"POST\" action=\"/username\">");
+        out.println("<input name=\"username\" />");
+        out.println("<br/>");
+        out.println("<button>Submit</button>");
+        out.println("</form>");
+        } else {
+        String loginUrl = userService.createLoginURL("/username");
+        out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+        }
     }
 
-    String username = request.getParameter("username");
-    String id = userService.getCurrentUser().getUserId();
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        UserService userService = UserServiceFactory.getUserService();
+        if (!userService.isUserLoggedIn()) {
+        response.sendRedirect("/username");
+        return;
+        }
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Entity entity = new Entity("UserInfo", id);
-    entity.setProperty("id", id);
-    entity.setProperty("username", username);
-    datastore.put(entity);
+        String username = request.getParameter("username");
+        String id = userService.getCurrentUser().getUserId();
 
-    response.sendRedirect("/comment.html");
-  }
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        Entity entity = new Entity("UserInfo", id);
+        entity.setProperty("id", id);
+        entity.setProperty("username", username);
+        datastore.put(entity);
+
+        response.sendRedirect("/comment.html");
+    }
 }

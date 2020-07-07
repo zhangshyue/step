@@ -40,15 +40,15 @@ public class UsernameServlet extends HttpServlet {
         // Form that set username
         UserService userService = UserServiceFactory.getUserService();
         if (userService.isUserLoggedIn()) {
-        out.println("<p>Set your username here:</p>");
-        out.println("<form method=\"POST\" action=\"/username\">");
-        out.println("<input name=\"username\" />");
-        out.println("<br/>");
-        out.println("<button>Submit</button>");
-        out.println("</form>");
+            out.println("<p>Set your username here:</p>");
+            out.println("<form method=\"POST\" action=\"/username\">");
+            out.println("<input name=\"username\" />");
+            out.println("<br/>");
+            out.println("<button>Submit</button>");
+            out.println("</form>");
         } else {
-        String loginUrl = userService.createLoginURL("/username");
-        out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+            String loginUrl = userService.createLoginURL("/username");
+            out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
         }
     }
 
@@ -56,8 +56,8 @@ public class UsernameServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         UserService userService = UserServiceFactory.getUserService();
         if (!userService.isUserLoggedIn()) {
-        response.sendRedirect("/username");
-        return;
+            response.sendRedirect("/username");
+            return;
         }
 
         String username = request.getParameter("username");

@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/** Servlet that handle user account status */
 @WebServlet("/account")
 public class AccountServlet extends HttpServlet {
 
@@ -41,48 +42,26 @@ public class AccountServlet extends HttpServlet {
         Gson gson = new Gson();
         String json = new String();
 
-        // If user is not logged in, show a login form (could also redirect to a login page)
+        // Get login information of the user
         if (!userService.isUserLoggedIn()) {
             String loginUrl = userService.createLoginURL("/comment.html");
-        //   out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
             status.add("Logout");
             status.add(loginUrl);
             json = gson.toJson(status);
-            // response.setContentType("application/json;");
-            // response.getWriter().println(json);
-        //   response.setContentType("text/html;");
-        //     response.getWriter().println("Not login");
-        //   return;
         }else{
             String logoutUrl = userService.createLogoutURL("/comment.html");
             status.add("Login");
+            status.add(getUserUsername(userService.getCurrentUser().getUserId()));
             status.add(logoutUrl);
-            status.add("/username");
             json = gson.toJson(status);
-            // response.setContentType("application/json;");
-            // response.getWriter().println(json);
-        //   return;
         }
         response.setContentType("application/json;");
         response.getWriter().println(json);
-
-        // If user has not set a username, redirect to username page
-        // String username = getUserUsername(userService.getCurrentUser().getUserId());
-        // if (username == null) {
-        //   response.sendRedirect("/username");
-        //   return;
-        // }
-
-        // // User is logged in and has a username, so the request can proceed
-        // String logoutUrl = userService.createLogoutURL("/account");
-        // out.println("<h1>Home</h1>");
-        // out.println("<p>Hello " + username + "!</p>");
-        // out.println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
-        // out.println("<p>Change your username <a href=\"/username\">here</a>.</p>");
-        // out.println("<p>Get to comments <a href=\"/comment.html\">here</a>.</p>");
     }
 
-    /** Returns the username of the user with id, or null if the user has not set a username. */
+    /**
+    * Returns the username of the user with id, or empty String if the user has not set a username.
+    */
     private String getUserUsername(String id) {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         Query query =
@@ -91,7 +70,7 @@ public class AccountServlet extends HttpServlet {
         PreparedQuery results = datastore.prepare(query);
         Entity entity = results.asSingleEntity();
         if (entity == null) {
-        return null;
+            return "";
         }
         String username = (String) entity.getProperty("username");
         return username;

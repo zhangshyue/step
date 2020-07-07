@@ -76,23 +76,18 @@ function updateUpvote(text, num) {
 
 function checkLogin() {
     fetch(`/account`).then(response => response.text()).then((status) => {
-        // let status = JSON.parse(comments);
-        console.log(status);
         status = JSON.parse(status);
-        console.log(status[0]);
         if (status[0] === "Login") {
-            // const accountElement = document.getElementsByClassName('account')[0];
-            // accountElement.innerText = 'Logout';
-            const accountElement = document.getElementsByClassName('dropdown-menu')[0];
-            accountElement.innerHTML = `<a class='dropdown-item' href=${status[1]}>Logout</a>\
-                                        <a class='dropdown-item' href=${status[2]}>Set Username</a>`;
-            // accountElement.href = status[1];
+            const accountElement = document.getElementsByClassName('account')[0];
+            accountElement.innerText = `Welcome ${status[1]}!`;
+            const optionElement = document.getElementsByClassName('btn-group')[0];
+            optionElement.innerHTML = `<button type='button' class='btn btn-secondary' onclick='location.href="${status[2]}"'>Logout</a>\
+                                        <button type='button' class='btn btn-secondary' onclick='location.href="/username"'>Set Username</a>`;
         } else {
-            // const accountElement = document.getElementsByClassName('account')[0];
-            // accountElement.innerText = 'Login';
-            // accountElement.href = status[1];
-            const accountElement = document.getElementsByClassName('dropdown-menu')[0];
-            accountElement.innerHTML = `<a class='dropdown-item' href=${status[1]}>Login</a>`;
+            const accountElement = document.getElementsByClassName('account')[0];
+            accountElement.innerText = 'Please login to comment';
+            const optionElement = document.getElementsByClassName('btn-group')[0];
+            optionElement.innerHTML = `<button type='button' class='btn btn-secondary' onclick='location.href="/username"'>Login</a>`;
         } 
   });
 }

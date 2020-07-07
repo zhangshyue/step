@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/** Servlet that handle login and set username */
 @WebServlet("/username")
 public class UsernameServlet extends HttpServlet {
 
@@ -36,13 +37,12 @@ public class UsernameServlet extends HttpServlet {
     response.setContentType("text/html");
     PrintWriter out = response.getWriter();
     out.println("<h1>Set Username</h1>");
-
+    // Form that set username
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
-      String username = getUserUsername(userService.getCurrentUser().getUserId());
       out.println("<p>Set your username here:</p>");
       out.println("<form method=\"POST\" action=\"/username\">");
-      out.println("<input name=\"username\" value=\"" + username + "\" />");
+      out.println("<input name=\"username\" />");
       out.println("<br/>");
       out.println("<button>Submit</button>");
       out.println("</form>");
@@ -67,26 +67,8 @@ public class UsernameServlet extends HttpServlet {
     Entity entity = new Entity("UserInfo", id);
     entity.setProperty("id", id);
     entity.setProperty("username", username);
-    // The put() function automatically inserts new data or updates existing data based on ID
     datastore.put(entity);
 
     response.sendRedirect("/comment.html");
-  }
-
-  /**
-   * Returns the username of the user with id, or empty String if the user has not set a username.
-   */
-  private String getUserUsername(String id) {
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query =
-        new Query("UserInfo")
-            .setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
-    PreparedQuery results = datastore.prepare(query);
-    Entity entity = results.asSingleEntity();
-    if (entity == null) {
-      return "";
-    }
-    String username = (String) entity.getProperty("username");
-    return username;
   }
 }

@@ -29,19 +29,47 @@ function getContentFunctions() {
         statsListElement.innerHTML = '';
 
         for(let i = 0; i < comments.length; i++) {
-            statsListElement.appendChild(createListElement(comments[i]));
+            statsListElement.appendChild(createListElement(comments[i], i));
         }
   });
 }
 
-/** Creates an <div> element containing text. */
-function createListElement(text) {
+/** Creates an <div> element containing comment contents. */
+function createListElement(text, num) {
     const divElement = document.createElement('div');
     divElement.classList.add('card');
-    divElement.innerHTML = `<div class='card-body'>\
-                                <h5 class='card-title'>${text.name}</h5>\
+
+    const cardBodyElement = document.createElement('div');
+    cardBodyElement.classList.add('card-body');
+    cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
                                 <p class='card-text'>${text.comment}</p>\
-                                <p class='card-text'><small class='text-muted'>${text.commentTime}</small></p>\
-                            </div>`;
+                                <p class='card-text'><small class='text-muted'>${text.commentTime}</small></p>`;
+
+    const upvoteElement = document.createElement('p');
+    upvoteElement.classList.add('card-text');
+    upvoteElement.innerHTML=`<span class='num-upvote ${num}'>${text.upvote}</span>`;
+
+    const upvoteButtonElement = document.createElement('button');
+    upvoteButtonElement.classList.add('mx-3','btn');
+    upvoteButtonElement.innerText = 'Upvote';
+    upvoteButtonElement.addEventListener('click', () => {
+        updateUpvote(text, num);
+    });
+
+    upvoteElement.appendChild(upvoteButtonElement);
+    cardBodyElement.appendChild(upvoteElement);
+    divElement.appendChild(cardBodyElement);
+
     return divElement;
+}
+
+/** Update the number of upvotes of the comment that is been upvoted. */
+function updateUpvote(text, num) {
+    const params = new URLSearchParams();
+    params.append('id', text.id);
+    fetch('/update-upvote', {method: 'POST', body: params}).then(() => {
+        const currentText = document.getElementsByClassName(num)[0].innerText;
+        const nextText = parseInt(currentText) + 1;
+        document.getElementsByClassName(num)[0].innerText = nextText;
+    });
 }

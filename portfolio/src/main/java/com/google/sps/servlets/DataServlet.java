@@ -17,6 +17,7 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -50,7 +51,8 @@ public class DataServlet extends HttpServlet {
             String name = (String) entity.getProperty("name");
             String comment = (String) entity.getProperty("comment");
             Date commentTime = (Date) entity.getProperty("commentTime");
-            comments.add(new DataStats(name, comment,commentTime));
+            int upvote = ((Long) entity.getProperty("upvote")).intValue();
+            comments.add(new DataStats(name, comment, commentTime, upvote, id));
             num += 1;
             if (num == commentsNumber) {
                 break;
@@ -81,6 +83,7 @@ public class DataServlet extends HttpServlet {
         commentEntity.setProperty("name", name);
         commentEntity.setProperty("comment", comment);
         commentEntity.setProperty("commentTime", currentTime);
+        commentEntity.setProperty("upvote", 0);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(commentEntity);

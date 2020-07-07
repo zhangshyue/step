@@ -35,5 +35,4 @@ public class DeleteDataServlet extends HttpServlet {
         // Redirect back to the HTML page.
         response.sendRedirect("/comment.html");
     }
-    
 }

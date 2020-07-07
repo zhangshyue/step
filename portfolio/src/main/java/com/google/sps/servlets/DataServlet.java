@@ -83,7 +83,7 @@ public class DataServlet extends HttpServlet {
             response.sendRedirect("/username");
             return;
         }
-        String username = getUserUsername(userService.getCurrentUser().getUserId());
+        String username = getUsername(userService.getCurrentUser().getUserId());
    
         // Get the input from the form.
         String name = username;
@@ -115,7 +115,7 @@ public class DataServlet extends HttpServlet {
     }
 
     /** Returns the username of the user with id, or null if the user has not set a username. */
-  private String getUserUsername(String id) {
+  private String getUsername(String id) {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Query query = new Query("UserInfo").setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
     PreparedQuery results = datastore.prepare(query);

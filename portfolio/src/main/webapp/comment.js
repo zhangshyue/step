@@ -42,8 +42,11 @@ function createListElement(text, num) {
     const cardBodyElement = document.createElement('div');
     cardBodyElement.classList.add('card-body');
     cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
-                                <p class='card-text'>${text.comment}</p>\
-                                <p class='card-text'><small class='text-muted'>${text.commentTime}</small></p>`;
+                                <p class='card-text text-muted'>${text.commentTime}</p>\
+                                <div>\
+                                    <img class="card-img-top rounded-0" src='${text.imgUrl}'>\
+                                </div>\
+                                <p class='card-text'>${text.comment}</p>`;
 
     const upvoteElement = document.createElement('p');
     upvoteElement.classList.add('card-text');

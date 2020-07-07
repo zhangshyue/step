@@ -77,16 +77,14 @@ function updateUpvote(text, num) {
 function checkLogin() {
     fetch(`/account`).then(response => response.text()).then((status) => {
         status = JSON.parse(status);
+        const accountElement = document.getElementsByClassName('account')[0];
+        const optionElement = document.getElementsByClassName('btn-group')[0];
         if (status[0] === "Login") {
-            const accountElement = document.getElementsByClassName('account')[0];
             accountElement.innerText = `Welcome ${status[1]}!`;
-            const optionElement = document.getElementsByClassName('btn-group')[0];
             optionElement.innerHTML = `<button type='button' class='btn btn-secondary' onclick='location.href="${status[2]}"'>Logout</a>\
                                         <button type='button' class='btn btn-secondary' onclick='location.href="/username"'>Set Username</a>`;
         } else {
-            const accountElement = document.getElementsByClassName('account')[0];
-            accountElement.innerText = 'Please login to comment';
-            const optionElement = document.getElementsByClassName('btn-group')[0];
+            accountElement.innerText = 'Please login to comment!';
             optionElement.innerHTML = `<button type='button' class='btn btn-secondary' onclick='location.href="/username"'>Login</a>`;
         } 
   });

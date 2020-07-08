@@ -144,14 +144,14 @@ h1 {
     }
 }
 
-.gm-style-iw-d {
-    width: 250px;
-}
-
 @media only screen and (max-width: 800px) {
     #map {
         width: 90%;
     }
+}
+
+.gm-style-iw-d {
+    width: 250px;
 }
 
 .carleton {

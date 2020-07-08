@@ -13,6 +13,15 @@
 // limitations under the License.
 
 /**
+ * Calls functions when page is loaded.
+ */
+function onload() {
+    getContentFunctions();
+    checkLogin();
+    fetchBlobstoreUrlAndShowForm();
+}
+
+/**
  * Fetches content from the server and adds it to the DOM.
  */
 function getContentFunctions() {
@@ -36,7 +45,6 @@ function getContentFunctions() {
 
 /** Creates an <div> element containing comment contents. */
 function createListElement(text, num) {
-    console.log(text);
     const divElement = document.createElement('div');
     divElement.classList.add('card');
 
@@ -85,17 +93,17 @@ function updateUpvote(text, num) {
 }
 
 function checkLogin() {
-    fetch(`/account`).then(response => response.text()).then((status) => {
-        status = JSON.parse(status);
+    fetch(`/account`).then(response => response.text()).then((account) => {
+        account = JSON.parse(account);
         const accountElement = document.getElementsByClassName('account')[0];
         const optionElement = document.getElementsByClassName('btn-group')[0];
-        if (status[0] === "Login") {
-            accountElement.innerText = `Welcome ${status[1]}!`;
-            optionElement.innerHTML = `<button type='button' class='btn btn-secondary' onclick='location.href="${status[2]}"'>Logout</a>\
+        if (account.status === "Login") {
+            accountElement.innerText = `Welcome ${account.name}!`;
+            optionElement.innerHTML = `<button type='button' class='btn btn-secondary' onclick='location.href="${account.url}"'>Logout</a>\
                                         <button type='button' class='btn btn-secondary' onclick='location.href="/username"'>Set Username</a>`;
         } else {
             accountElement.innerText = 'Please login to comment!';
-            optionElement.innerHTML = `<button type='button' class='btn btn-secondary' onclick='location.href="/username"'>Login</a>`;
+            optionElement.innerHTML = `<button type='button' class='btn btn-secondary' onclick='location.href="${account.url}"'>Login</a>`;
         } 
   });
 }
@@ -109,3 +117,4 @@ function fetchBlobstoreUrlAndShowForm() {
             commentForm.classList.remove('d-none');
         });
 }
+

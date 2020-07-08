@@ -21,9 +21,12 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.sps.data.DataStats;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,8 +77,19 @@ public class DataServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        UserService userService = UserServiceFactory.getUserService();
+        // If user is not logged in, show a login form 
+        if (!userService.isUserLoggedIn()) {
+            response.sendRedirect("/username");
+            return;
+        }
+        String username = getUsername(userService.getCurrentUser().getUserId());
+        if (username.isEmpty()) {
+            username = "Anonymous";
+        }
+   
         // Get the input from the form.
-        String name = getParameter(request, "name", "Anonymous");
+        String name = username;
         String comment = getParameter(request, "comment", "");
         Date currentTime = new Date();
 
@@ -88,7 +102,6 @@ public class DataServlet extends HttpServlet {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(commentEntity);
 
-        // Redirect back to the HTML page.
         response.sendRedirect("/comment.html");
     }
     
@@ -103,6 +116,19 @@ public class DataServlet extends HttpServlet {
         }
         return value;
     }
+
+    /** Returns the username of the user with id, or null if the user has not set a username. */
+  private String getUsername(String id) {
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Query query = new Query("UserInfo").setFilter(new Query.FilterPredicate("id", Query.FilterOperator.EQUAL, id));
+    PreparedQuery results = datastore.prepare(query);
+    Entity entity = results.asSingleEntity();
+    if (entity == null) {
+      return null;
+    }
+    String username = (String) entity.getProperty("username");
+    return username;
+  }
 }
 
 

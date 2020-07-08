@@ -13,6 +13,14 @@
 // limitations under the License.
 
 /**
+ * Calls functions when page is loaded.
+ */
+function onload() {
+    getContentFunctions();
+    checkLogin();
+}
+
+/**
  * Fetches content from the server and adds it to the DOM.
  */
 function getContentFunctions() {
@@ -71,5 +79,21 @@ function updateUpvote(text, num) {
         const currentText = document.getElementsByClassName(num)[0].innerText;
         const nextText = parseInt(currentText) + 1;
         document.getElementsByClassName(num)[0].innerText = nextText;
+    });
+}
+
+function checkLogin() {
+    fetch(`/account`).then(response => response.text()).then((account) => {
+        account = JSON.parse(account);
+        const accountElement = document.getElementsByClassName('account')[0];
+        const optionElement = document.getElementsByClassName('btn-group')[0];
+        if (account.status === "Login") {
+            accountElement.innerText = `Welcome ${account.name}!`;
+            optionElement.innerHTML = `<button type='button' class='btn btn-secondary' onclick='location.href="${account.url}"'>Logout</a>\
+                                        <button type='button' class='btn btn-secondary' onclick='location.href="/username"'>Set Username</a>`;
+        } else {
+            accountElement.innerText = 'Please login to comment!';
+            optionElement.innerHTML = `<button type='button' class='btn btn-secondary' onclick='location.href="${account.url}"'>Login</a>`;
+        } 
     });
 }

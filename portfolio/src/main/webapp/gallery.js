@@ -1,6 +1,6 @@
 /** Creates a map and adds it to the page. */
 function createMap() {
-    const map = new google.maps.Map(document.getElementById('map'),{center: {lat: 43.494, lng: 12.496}, zoom: 5});
+    const map = new google.maps.Map(document.getElementById('map'), {center: {lat: 43.494, lng: 12.496}, zoom: 5});
     addLandmark(
         map, 48.857, 2.352, 'Paris',
         '<h4>Paris</h4>' +
@@ -30,9 +30,6 @@ function createMap() {
 /** Adds a marker that shows an info window when clicked. */
 function addLandmark(map, lat, lng, title, description) {
     const marker = new google.maps.Marker({position: {lat: lat, lng: lng}, map: map, title: title});
-
     const infoWindow = new google.maps.InfoWindow({content: description});
-    marker.addListener('click', () => {
-        infoWindow.open(map, marker);
-    });
+    marker.addListener('click', () => {infoWindow.open(map, marker);});
 }

@@ -36,16 +36,10 @@ public class UsernameServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        out.println("<h1>Set Username</h1>");
         // Create a form that can set username
         UserService userService = UserServiceFactory.getUserService();
         if (userService.isUserLoggedIn()) {
-            out.println("<p>Set your username here:</p>");
-            out.println("<form method=\"POST\" action=\"/username\">");
-            out.println("<input name=\"username\" />");
-            out.println("<br/>");
-            out.println("<button>Submit</button>");
-            out.println("</form>");
+            response.sendRedirect("/account.html");
         } else {
             String loginUrl = userService.createLoginURL("/username");
             out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");

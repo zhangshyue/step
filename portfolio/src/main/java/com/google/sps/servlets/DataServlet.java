@@ -84,6 +84,7 @@ public class DataServlet extends HttpServlet {
             return;
         }
         String username = getUsername(userService.getCurrentUser().getUserId());
+        if 
    
         // Get the input from the form.
         String name = username;

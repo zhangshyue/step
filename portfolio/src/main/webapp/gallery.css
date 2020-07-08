@@ -133,14 +133,20 @@ h1 {
 
 #map {
     border: thin solid black;
-    height: 500px;
+    height: 550px;
     width: 60%;
     margin: auto;
 }
 
-@media only screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) and (min-width: 800px) {
     #map {
-        width: 85%;
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #map {
+        width: 90%;
     }
 }
 

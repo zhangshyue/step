@@ -24,13 +24,12 @@ function createMap() {
     addLandmark(
         map, 40.416, -3.704, 'Madrid',
         '<h4>Madrid</h4>' +
-        '<p>Madrid is similar to some cities in France or ITaly. But Spanish dried meat is so good. I really love dried sausage and Jamón.</p>')
+        '<p>Madrid is similar to some cities in France or Italy. But Spanish dried meat is so good. I really love dried sausage and Jamón.</p>')
 }
 
 /** Adds a marker that shows an info window when clicked. */
 function addLandmark(map, lat, lng, title, description) {
-    const marker = new google.maps.Marker(
-        {position: {lat: lat, lng: lng}, map: map, title: title});
+    const marker = new google.maps.Marker({position: {lat: lat, lng: lng}, map: map, title: title});
 
     const infoWindow = new google.maps.InfoWindow({content: description});
     marker.addListener('click', () => {

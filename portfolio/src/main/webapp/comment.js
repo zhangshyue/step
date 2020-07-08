@@ -18,6 +18,7 @@
 function onload() {
     getContentFunctions();
     checkLogin();
+    fetchBlobstoreUrlAndShowForm();
 }
 
 /**
@@ -44,7 +45,6 @@ function getContentFunctions() {
 
 /** Creates an <div> element containing comment contents. */
 function createListElement(text, num) {
-    console.log(text);
     const divElement = document.createElement('div');
     divElement.classList.add('card');
 
@@ -105,7 +105,6 @@ function checkLogin() {
             accountElement.innerText = 'Please login to comment!';
             optionElement.innerHTML = `<button type='button' class='btn btn-secondary' onclick='location.href="${account.url}"'>Login</a>`;
         } 
-<<<<<<< HEAD
   });
 }
 
@@ -118,7 +117,4 @@ function fetchBlobstoreUrlAndShowForm() {
             commentForm.classList.remove('d-none');
         });
 }
-=======
-    });
-}
->>>>>>> libraries
+

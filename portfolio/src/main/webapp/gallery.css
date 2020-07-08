@@ -131,6 +131,19 @@ h1 {
     margin-bottom: 5.5em;
 }
 
+#map {
+    border: thin solid black;
+    height: 500px;
+    width: 60%;
+    margin: auto;
+}
+
+@media only screen and (max-width: 1000px) {
+    #map {
+        width: 85%;
+    }
+}
+
 .carleton {
     width: 70%;
     margin: auto;

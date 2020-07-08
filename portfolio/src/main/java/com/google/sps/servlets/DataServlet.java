@@ -84,7 +84,9 @@ public class DataServlet extends HttpServlet {
             return;
         }
         String username = getUsername(userService.getCurrentUser().getUserId());
-        if 
+        if (username.isEmpty()) {
+            username = "Anonymous";
+        }
    
         // Get the input from the form.
         String name = username;

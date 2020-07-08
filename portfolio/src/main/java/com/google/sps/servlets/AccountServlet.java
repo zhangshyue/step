@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.ArrayList;
+import com.google.sps.data.AccountStats;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,17 +45,12 @@ public class AccountServlet extends HttpServlet {
 
         // Get login information of the user
         if (!userService.isUserLoggedIn()) {
-            String loginUrl = userService.createLoginURL("/comment.html");
-            status.add("Logout");
-            status.add(loginUrl);
-            json = gson.toJson(status);
+            json = gson.toJson(new AccountStats("", "Logout", "/username"));
         } else {
             String logoutUrl = userService.createLogoutURL("/comment.html");
-            status.add("Login");
-            status.add(getUsername(userService.getCurrentUser().getUserId()));
-            status.add(logoutUrl);
-            json = gson.toJson(status);
+            json = gson.toJson(new AccountStats(getUsername(userService.getCurrentUser().getUserId()), "Login", logoutUrl));
         }
+
         response.setContentType("application/json;");
         response.getWriter().println(json);
     }

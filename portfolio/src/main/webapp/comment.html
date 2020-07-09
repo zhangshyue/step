@@ -36,9 +36,12 @@
             <div class="btn-group" role="group" aria-label="Basic example"></div>
             <hr class="line m-5">
             <h3>Enter comments for this webpage:</h3>
-            <form action="/data" method="POST">
+            <form id="comment-form" class="d-none" action="/data" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                <textarea name="comment" class="form-control"></textarea>
+                    <textarea name="comment" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="file" name="image" />
                 </div>
                 <input type="submit" class="btn" />
             </form>

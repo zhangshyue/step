@@ -36,9 +36,10 @@ public class UsernameServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-        // Form that set username
+        
         UserService userService = UserServiceFactory.getUserService();
         if (userService.isUserLoggedIn()) {
+            // Create a form that can set username
             response.sendRedirect("/account.html");
         } else {
             String loginUrl = userService.createLoginURL("/username");

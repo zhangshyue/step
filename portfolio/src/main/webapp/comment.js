@@ -18,6 +18,7 @@
 function onload() {
     getContentFunctions();
     checkLogin();
+    fetchBlobstoreUrlAndShowForm();
 }
 
 /**
@@ -49,9 +50,18 @@ function createListElement(text, num) {
 
     const cardBodyElement = document.createElement('div');
     cardBodyElement.classList.add('card-body');
-    cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
-                                <p class='card-text'>${text.comment}</p>\
-                                <p class='card-text'><small class='text-muted'>${text.commentTime}</small></p>`;
+    if (text.imgUrl) {
+        cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
+                                    <p class='card-text text-muted'>${text.commentTime}</p>\
+                                    <div>\
+                                        <img class='card-img-top rounded-0' src='${text.imgUrl}'>\
+                                    </div>\
+                                    <p class='card-text'>${text.comment}</p>`;
+    } else {
+        cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
+                                    <p class='card-text text-muted'>${text.commentTime}</p>\
+                                    <p class='card-text'>${text.comment}</p>`;
+    }
 
     const upvoteElement = document.createElement('p');
     upvoteElement.classList.add('card-text');
@@ -95,5 +105,16 @@ function checkLogin() {
             accountElement.innerText = 'Please login to comment!';
             optionElement.innerHTML = `<button type='button' class='btn btn-secondary' onclick='location.href="${account.url}"'>Login</a>`;
         } 
-    });
+  });
 }
+
+function fetchBlobstoreUrlAndShowForm() {
+    fetch('/blobstore-upload-url').then((response) => {
+            return response.text();
+        }).then((imageUploadUrl) => {
+            const commentForm = document.getElementById('comment-form');
+            commentForm.action = imageUploadUrl;
+            commentForm.classList.remove('d-none');
+        });
+}
+

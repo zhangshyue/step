@@ -68,7 +68,7 @@ public class DataServlet extends HttpServlet {
             int upvote = ((Long) entity.getProperty("upvote")).intValue();
             String imgUrl = (String) entity.getProperty("imgUrl");
 
-            comments.add(new DataStats(name, comment, commentTime, upvote, id, imgUrl));
+            comments.add(new DataStats(name, comment, commentTime, upvote, id, imgUrl, 1));
             num += 1;
             if (num == commentsNumber) {
                 break;

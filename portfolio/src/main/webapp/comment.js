@@ -126,7 +126,7 @@ function drawChart() {
     const data = new google.visualization.DataTable();
     data.addColumn('string', 'Animal');
     data.addColumn('number', 'Count');
-            data.addRows([
+    data.addRows([
             ['Lions', 10],
             ['Tigers', 5],
             ['Bears', 15]

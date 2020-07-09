@@ -19,6 +19,7 @@ function onload() {
     getContentFunctions();
     checkLogin();
     fetchBlobstoreUrlAndShowForm();
+    addRateWebsite();
 }
 
 /**
@@ -141,5 +142,21 @@ function drawChart() {
     const chart = new google.visualization.PieChart(
         document.getElementById('chart-container'));
     chart.draw(data, options);
+}
+
+function addRateWebsite() {
+    const starElements = document.getElementsByClassName('fa-star');
+    console.log(starElements);
+    console.log(starElements[0]);
+    for (let i = 0; i < starElements.length; i++) {
+        // let rating = i;
+        starElements[i].addEventListener('click', () => {
+        rateWebsite(i + 1);
+    });
+    }
+}
+
+function rateWebsite(rating) {
+    console.log(rating);
 }
 

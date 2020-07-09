@@ -16,3 +16,7 @@
     background-color: #666;
     border-color: #666;
 }
+
+.checked {
+    color: orange;
+}

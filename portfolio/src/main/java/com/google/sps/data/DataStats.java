@@ -58,6 +58,6 @@ public final class DataStats {
   }
 
   public int getRating() {
-      return rating;
+    return rating;
   }
 }

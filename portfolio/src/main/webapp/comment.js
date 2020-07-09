@@ -34,6 +34,7 @@ function getContentFunctions() {
         return;
     }
     fetch(`/data?number=${num}`).then(response => response.text()).then((comments) => {
+        console.log(comments);
         comments = JSON.parse(comments);
         const statsListElement = document.getElementById('comment-container');
         statsListElement.innerHTML = '';
@@ -146,10 +147,9 @@ function drawChart() {
 
 function addRateWebsite() {
     const starElements = document.getElementsByClassName('fa-star');
-    console.log(starElements);
-    console.log(starElements[0]);
+    // console.log(starElements);
+    // console.log(starElements[0]);
     for (let i = 0; i < starElements.length; i++) {
-        // let rating = i;
         starElements[i].addEventListener('click', () => {
         rateWebsite(i + 1);
     });
@@ -157,6 +157,8 @@ function addRateWebsite() {
 }
 
 function rateWebsite(rating) {
-    console.log(rating);
+    const ratingElement = document.getElementById('rating-value');
+    ratingElement.value = rating;
+    console.log(ratingElement.value);
 }
 

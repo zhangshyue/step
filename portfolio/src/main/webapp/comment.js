@@ -72,7 +72,6 @@ function createListElement(text, num) {
 
     if (text.rating  != 0) {
         const showRatingElement = cardBodyElement.getElementsByClassName('show-rating')[0];
-        // console.log(showRatingElement);
         for (let i = 0; i < 5; i++) {
             const starElement = document.createElement('span');
             if (i < text.rating) {
@@ -142,26 +141,32 @@ function fetchBlobstoreUrlAndShowForm() {
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
-/** Creates a chart and adds it to the page. */
+/** Creates a bar chart that shows the rating result and adds it to the page. */
 function drawChart() {
-    const data = new google.visualization.DataTable();
-    data.addColumn('string', 'Animal');
-    data.addColumn('number', 'Count');
-    data.addRows([
-            ['Lions', 10],
-            ['Tigers', 5],
-            ['Bears', 15]
-            ]);
+    fetch(`/data?number=-1`).then(response => response.text()).then((ratings) => {
+        ratings = JSON.parse(ratings);
+        const resultElements = document.getElementById('rating-result').getElementsByClassName('display-3')[0];
+        resultElements.innerText = ratings[6];
+        
+        let data = google.visualization.arrayToDataTable([
+            ['Rating', 'Total Rating', {role: 'style'}],
+            ['5', ratings[4], 'color: #666'],
+            ['4', ratings[3], 'color: #666'],
+            ['3', ratings[2], 'color: #666'],
+            ['2', ratings[1], 'color: #666'],
+            ['1', ratings[0], 'color: #666']
+        ]);
 
-    const options = {
-        'title': 'Zoo Animals',
-        'width':500,
-        'height':400
-    };
-
-    const chart = new google.visualization.PieChart(
-        document.getElementById('chart-container'));
-    chart.draw(data, options);
+        const options = {
+            title: 'Ratings',
+            width: 500,
+            height: 200,
+            legend: {position: 'none'},
+            bars: 'horizontal'
+        };
+        const chart = new google.visualization.BarChart(document.getElementById('chart-container'));
+        chart.draw(data, options);
+    });
 }
 
 function addRateWebsite() {

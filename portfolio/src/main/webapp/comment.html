@@ -36,7 +36,13 @@
             <h3 class="account"></h3>
             <div class="btn-group" role="group" aria-label="Account status"></div>
             <hr class="line m-5">
-            <div id="chart-container"></div>
+            <div id="rating-result" class="row">
+                <div class="col-md-4 col-12 text-md-right text-center py-4">
+                    <p class="display-3"></p>
+                    <h4>out of 5</h4>
+                </div>
+                <div id="chart-container" class="col-12 col-md-8"></div>
+            </div>
             <hr class="line m-5">
             <h3>Enter comments for this webpage:</h3>
             <form id="comment-form" class="d-none" action="/data" method="POST" enctype="multipart/form-data">

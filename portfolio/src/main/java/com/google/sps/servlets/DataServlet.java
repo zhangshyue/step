@@ -67,7 +67,7 @@ public class DataServlet extends HttpServlet {
             Date commentTime = (Date) entity.getProperty("commentTime");
             int upvote = ((Long) entity.getProperty("upvote")).intValue();
             String imgUrl = (String) entity.getProperty("imgUrl");
-            int rating = Integer.parseInt(entity.getProperty("upvote").toString());
+            int rating = Integer.parseInt(entity.getProperty("rating").toString());
 
             comments.add(new DataStats(name, comment, commentTime, upvote, id, imgUrl, rating));
             num += 1;

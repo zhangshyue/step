@@ -53,15 +53,35 @@ function createListElement(text, num) {
     cardBodyElement.classList.add('card-body');
     if (text.imgUrl) {
         cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
-                                    <p class='card-text text-muted'>${text.commentTime}</p>\
+                                    <div class="row">\
+                                        <p class='card-text text-muted col-4'>${text.commentTime}</p>\
+                                        <div class="show-rating  col-8"></div>\
+                                    </div>\
                                     <div>\
                                         <img class='card-img-top rounded-0' src='${text.imgUrl}'>\
                                     </div>\
                                     <p class='card-text'>${text.comment}</p>`;
     } else {
         cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
-                                    <p class='card-text text-muted'>${text.commentTime}</p>\
+                                    <div class="row">\
+                                        <p class='card-text text-muted col-4'>${text.commentTime}</p>\
+                                        <div class="show-rating  col-8"></div>\
+                                    </div>\
                                     <p class='card-text'>${text.comment}</p>`;
+    }
+
+    if (text.rating  != 0) {
+        const showRatingElement = cardBodyElement.getElementsByClassName('show-rating')[0];
+        // console.log(showRatingElement);
+        for (let i = 0; i < 5; i++) {
+            const starElement = document.createElement('span');
+            if (i < text.rating) {
+                starElement.classList.add('fa', 'fa-star', 'checked');
+            } else {
+                starElement.classList.add('fa', 'fa-star');
+            }
+            showRatingElement.appendChild(starElement);
+        }
     }
 
     const upvoteElement = document.createElement('p');
@@ -156,8 +176,8 @@ function addRateWebsite() {
 function rateWebsite(rating) {
     const ratingElement = document.getElementById('rating-value');
     ratingElement.value = rating;
-    const starElements = document.getElementsByClassName('fa-star');
-    for (let i = 0; i < starElements.length; i++) {
+    const starElements = document.getElementById('rating').getElementsByClassName('fa-star');
+    for (let i = 0; i < 5; i++) {
         if (i < rating) {
             starElements[i].classList.add('checked');
         } else {

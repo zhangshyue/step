@@ -18,11 +18,15 @@
 }
 
 #rating:hover > span:before {
-    color: orange;
+    color: orange!important;
 }
 
 #rating > span:hover ~ span:before {
-    color: black;
+    color: black!important;
+}
+
+.checked {
+    color: orange;
 }
 
 

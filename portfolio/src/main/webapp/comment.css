@@ -17,6 +17,13 @@
     border-color: #666;
 }
 
-.checked {
+#rating:hover > span:before {
     color: orange;
 }
+
+#rating > span:hover ~ span:before {
+    color: black;
+}
+
+
+

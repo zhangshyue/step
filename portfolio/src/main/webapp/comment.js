@@ -144,9 +144,13 @@ google.charts.setOnLoadCallback(drawChart);
 /** Creates a bar chart that shows the rating result and adds it to the page. */
 function drawChart() {
     fetch(`/data?number=-1`).then(response => response.text()).then((ratings) => {
+        console.log(ratings);
         ratings = JSON.parse(ratings);
+        console.log(typeof(ratings[6]));
         const resultElements = document.getElementById('rating-result').getElementsByClassName('display-3')[0];
         resultElements.innerText = ratings[6];
+        const numReviewsElements = document.getElementById('rating-result').getElementsByClassName('num-reviews')[0];
+        numReviewsElements.innerText = ratings[5] + ' Reviews';
         
         let data = google.visualization.arrayToDataTable([
             ['Rating', 'Total Rating', {role: 'style'}],
@@ -156,14 +160,32 @@ function drawChart() {
             ['2', ratings[1], 'color: #666'],
             ['1', ratings[0], 'color: #666']
         ]);
-
-        const options = {
-            title: 'Ratings',
-            width: 500,
-            height: 200,
-            legend: {position: 'none'},
-            bars: 'horizontal'
-        };
+        let options;
+        if (ratings[5] == 0) {
+            options = {
+                title: 'Ratings',
+                width: 500,
+                height: 200,
+                legend: {position: 'none'},
+                bars: 'horizontal',
+                hAxis: {
+                    viewWindowMode:'explicit',
+                    viewWindow: {
+                        max:5,              
+                        min:0
+                    }
+                }
+            };
+        } else {
+            options = {
+                title: 'Ratings',
+                width: 500,
+                height: 200,
+                legend: {position: 'none'},
+                bars: 'horizontal'
+            };
+        }
+        
         const chart = new google.visualization.BarChart(document.getElementById('chart-container'));
         chart.draw(data, options);
     });

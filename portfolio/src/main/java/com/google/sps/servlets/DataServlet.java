@@ -73,7 +73,9 @@ public class DataServlet extends HttpServlet {
                     ratings[5] += 1;
                 } 
             }
-            ratings[6] = Double.parseDouble(String.format("%.1f", totalRating/ratings[5]));
+            if (ratings[5] != 0) {
+                ratings[6] = Double.parseDouble(String.format("%.1f", totalRating/ratings[5]));
+            }
             json = gson.toJson(ratings);
         } else {
             // If number is not -1, return the comments that you want to fetch

@@ -53,9 +53,9 @@ function createListElement(text, num) {
     cardBodyElement.classList.add('card-body');
     if (text.imgUrl) {
         cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
-                                    <div class="row">\
+                                    <div class='row'>\
                                         <p class='card-text text-muted col-4'>${text.commentTime}</p>\
-                                        <div class="show-rating  col-8"></div>\
+                                        <div class='show-rating  col-8'></div>\
                                     </div>\
                                     <div>\
                                         <img class='card-img-top rounded-0' src='${text.imgUrl}'>\
@@ -63,13 +63,14 @@ function createListElement(text, num) {
                                     <p class='card-text'>${text.comment}</p>`;
     } else {
         cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
-                                    <div class="row">\
+                                    <div class='row'>\
                                         <p class='card-text text-muted col-4'>${text.commentTime}</p>\
-                                        <div class="show-rating  col-8"></div>\
+                                        <div class='show-rating  col-8'></div>\
                                     </div>\
                                     <p class='card-text'>${text.comment}</p>`;
     }
 
+    // Modify rating stars color according to each comment's rating. 
     if (text.rating  != 0) {
         const showRatingElement = cardBodyElement.getElementsByClassName('show-rating')[0];
         for (let i = 0; i < 5; i++) {
@@ -167,10 +168,10 @@ function drawChart() {
                 legend: {position: 'none'},
                 bars: 'horizontal',
                 hAxis: {
-                    viewWindowMode:'explicit',
+                    viewWindowMode: 'explicit',
                     viewWindow: {
-                        max:5,              
-                        min:0
+                        max: 5,              
+                        min: 0
                     }
                 }
             };
@@ -193,9 +194,7 @@ function drawChart() {
 function addRateWebsite() {
     const starElements = document.getElementById('rating').getElementsByClassName('fa-star');
     for (let i = 0; i < starElements.length; i++) {
-        starElements[i].addEventListener('click', () => {
-        rateWebsite(i + 1);
-    });
+        starElements[i].addEventListener('click', () => {rateWebsite(i + 1);});
     }
 }
 

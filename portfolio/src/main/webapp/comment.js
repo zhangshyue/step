@@ -110,11 +110,11 @@ function checkLogin() {
 
 function fetchBlobstoreUrlAndShowForm() {
     fetch('/blobstore-upload-url').then((response) => {
-            return response.text();
-        }).then((imageUploadUrl) => {
-            const commentForm = document.getElementById('comment-form');
-            commentForm.action = imageUploadUrl;
-            commentForm.classList.remove('d-none');
-        });
+        return response.text();
+    }).then((imageUploadUrl) => {
+        const commentForm = document.getElementById('comment-form');
+        commentForm.action = imageUploadUrl;
+        commentForm.classList.remove('d-none');
+    });
 }
 

@@ -144,9 +144,7 @@ google.charts.setOnLoadCallback(drawChart);
 /** Creates a bar chart that shows the rating result and adds it to the page. */
 function drawChart() {
     fetch(`/data?number=-1`).then(response => response.text()).then((ratings) => {
-        console.log(ratings);
         ratings = JSON.parse(ratings);
-        console.log(typeof(ratings[6]));
         const resultElements = document.getElementById('rating-result').getElementsByClassName('display-3')[0];
         resultElements.innerText = ratings[6];
         const numReviewsElements = document.getElementById('rating-result').getElementsByClassName('num-reviews')[0];
@@ -191,8 +189,9 @@ function drawChart() {
     });
 }
 
+/** Make rating stars clickable. */
 function addRateWebsite() {
-    const starElements = document.getElementsByClassName('fa-star');
+    const starElements = document.getElementById('rating').getElementsByClassName('fa-star');
     for (let i = 0; i < starElements.length; i++) {
         starElements[i].addEventListener('click', () => {
         rateWebsite(i + 1);
@@ -200,6 +199,7 @@ function addRateWebsite() {
     }
 }
 
+/** Modify values of rating based on the star that the user clicks. */
 function rateWebsite(rating) {
     const ratingElement = document.getElementById('rating-value');
     ratingElement.value = rating;

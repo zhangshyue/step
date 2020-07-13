@@ -64,17 +64,13 @@ public class DataServlet extends HttpServlet {
             // If number is -1, get rating result of all the comments
             int sum = 0;
             double totalRating = 0;
-            double[] ratings = new double[7];
+            double[] ratings = new double[5];
             for (Entity entity : results.asIterable()) {
                 int rating = Integer.parseInt(entity.getProperty("rating").toString());
                 if (rating != 0) {
                     ratings[rating - 1] += 1;
                     totalRating += rating;
-                    ratings[5] += 1;
                 } 
-            }
-            if (ratings[5] != 0) {
-                ratings[6] = Double.parseDouble(String.format("%.1f", totalRating/ratings[5]));
             }
             json = gson.toJson(ratings);
         } else {

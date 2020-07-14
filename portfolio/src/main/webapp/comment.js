@@ -152,9 +152,13 @@ function drawChart() {
             totalNum += ratings[i];
             totalRating += ratings[i] * (i + 1);
         }
+        let averageRating = 0;
+        if (totalNum != 0) {
+            averageRating = (totalRating / totalNum).toFixed(1);
+        }
 
         const resultElements = document.getElementById('rating-result').getElementsByClassName('display-3')[0];
-        resultElements.innerText = (totalRating / totalNum).toFixed(1);
+        resultElements.innerText = averageRating;
         const numReviewsElements = document.getElementById('rating-result').getElementsByClassName('num-reviews')[0];
         numReviewsElements.innerText = totalNum + ' Reviews';
         
@@ -167,7 +171,7 @@ function drawChart() {
             ['1', ratings[0], 'color: #666']
         ]);
         let options;
-        if (ratings[5] == 0) {
+        if (averageRating == 0) {
             options = {
                 title: 'Ratings',
                 width: 500,

@@ -144,7 +144,7 @@ google.charts.setOnLoadCallback(drawChart);
 
 /** Creates a bar chart that shows the rating result and adds it to the page. */
 function drawChart() {
-    fetch(`/data?number=-1`).then(response => response.text()).then((ratings) => {
+    fetch(`/rating`).then(response => response.text()).then((ratings) => {
         ratings = JSON.parse(ratings);
         let totalNum = 0;
         let totalRating = 0;

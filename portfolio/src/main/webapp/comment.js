@@ -144,7 +144,7 @@ google.charts.setOnLoadCallback(drawChart);
 
 /** Creates a bar chart that shows the rating result and adds it to the page. */
 function drawChart() {
-    fetch(`/rating`).then(response => response.text()).then((ratings) => {
+    fetch('/rating').then(response => response.text()).then((ratings) => {
         ratings = JSON.parse(ratings);
         let totalNum = 0;
         let totalRating = 0;
@@ -171,7 +171,7 @@ function drawChart() {
             ['1', ratings[0], 'color: #666']
         ]);
         let options;
-        if (averageRating == 0) {
+        if (averageRating === 0) {
             options = {
                 title: 'Ratings',
                 width: 500,
@@ -205,7 +205,9 @@ function drawChart() {
 function addRateWebsite() {
     const starElements = document.getElementById('rating').getElementsByClassName('fa-star');
     for (let i = 0; i < starElements.length; i++) {
-        starElements[i].addEventListener('click', () => {rateWebsite(i + 1);});
+        starElements[i].addEventListener('click', () => {
+            rateWebsite(i + 1);
+        });
     }
 }
 

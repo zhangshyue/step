@@ -100,8 +100,8 @@ public final class FindMeetingQuery {
             }
             start = timeRanges.get(i).end();
         }
-        if (TimeRange.END_OF_DAY - timeRanges.get(timeRanges.size()-1).end() >= request.getDuration()) {
-            queries.add(TimeRange.fromStartEnd(timeRanges.get(timeRanges.size()-1).end(), TimeRange.END_OF_DAY, true));
+        if (TimeRange.END_OF_DAY - timeRanges.get(timeRanges.size() - 1).end() >= request.getDuration()) {
+            queries.add(TimeRange.fromStartEnd(timeRanges.get(timeRanges.size() - 1).end(), TimeRange.END_OF_DAY, true));
         }
         return queries;
     }

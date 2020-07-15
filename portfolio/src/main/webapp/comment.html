@@ -3,10 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <title>My Portfolio</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="comment.css">
-        <script src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="https://unpkg.com/scrollreveal@4"></script>
         <script src="comment.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -34,16 +33,7 @@
         </nav>
         <div id="content" class="container">
             <h3 class="account"></h3>
-            <div class="btn-group" role="group" aria-label="Account status"></div>
-            <hr class="line m-5">
-            <div id="rating-result" class="row">
-                <div class="col-md-4 col-12 text-md-right text-center py-4">
-                    <p class="display-3"></p>
-                    <h4>out of 5</h4>
-                    <h4 class="num-reviews"><h4>
-                </div>
-                <div id="chart-container" class="col-12 col-md-8"></div>
-            </div>
+            <div class="btn-group" role="group" aria-label="Basic example"></div>
             <hr class="line m-5">
             <h3>Enter comments for this webpage:</h3>
             <form id="comment-form" class="d-none" action="/data" method="POST" enctype="multipart/form-data">
@@ -52,15 +42,6 @@
                 </div>
                 <div class="form-group">
                     <input type="file" name="image" />
-                </div>
-                <div id="rating" class="form-group">
-                    <label>Rate this website</label>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <input type="number" name="number-rating" min="0" max="5" value="0" id="rating-value" class="d-none" />
                 </div>
                 <input type="submit" class="btn" />
             </form>

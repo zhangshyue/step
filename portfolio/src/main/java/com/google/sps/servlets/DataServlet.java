@@ -57,9 +57,7 @@ public class DataServlet extends HttpServlet {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
         int commentsNumber = Integer.parseInt(request.getParameter("number"));
-        Gson gson = new Gson(); 
-
-        // return the comments that you want to fetch
+        
         List<DataStats> comments = new ArrayList<>();
         int num = 0;
         for (Entity entity : results.asIterable()) {
@@ -69,18 +67,25 @@ public class DataServlet extends HttpServlet {
             Date commentTime = (Date) entity.getProperty("commentTime");
             int upvote = ((Long) entity.getProperty("upvote")).intValue();
             String imgUrl = (String) entity.getProperty("imgUrl");
-            int rating = Integer.parseInt(entity.getProperty("rating").toString());
 
-            comments.add(new DataStats(name, comment, commentTime, upvote, id, imgUrl, rating));
+            comments.add(new DataStats(name, comment, commentTime, upvote, id, imgUrl));
             num += 1;
             if (num == commentsNumber) {
                 break;
             }
         }
-        String json = gson.toJson(comments);
-        
+
+        String json = convertToJsonUsingGson(comments);
         response.setContentType("application/json;");
         response.getWriter().println(json);
+    }
+
+    /**
+    * Converts a ServerStats instance into a JSON string using the Gson library.
+    */
+    private String convertToJsonUsingGson(List<DataStats> comments) {
+        Gson gson = new Gson();
+        return gson.toJson(comments);
     }
 
     @Override
@@ -102,7 +107,6 @@ public class DataServlet extends HttpServlet {
         String comment = getParameter(request, "comment", "");
         Date currentTime = new Date();
         String imageUrl = getUploadedFileUrl(request, "image");
-        String rating = request.getParameter("number-rating");
         if (imageUrl == null) {
             imageUrl = "";
         }
@@ -113,7 +117,6 @@ public class DataServlet extends HttpServlet {
         commentEntity.setProperty("commentTime", currentTime);
         commentEntity.setProperty("upvote", 0);
         commentEntity.setProperty("imgUrl", imageUrl);
-        commentEntity.setProperty("rating", rating);
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(commentEntity);

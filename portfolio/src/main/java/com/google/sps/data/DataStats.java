@@ -25,16 +25,14 @@ public final class DataStats {
   private final int upvote;
   private final long id;
   private final String imgUrl;
-  private final int rating;
 
-  public DataStats(String name, String comment, Date commentTime, int upvote, long id, String imgUrl, int rating) {
+  public DataStats(String name, String comment, Date commentTime, int upvote, long id, String imgUrl) {
     this.name = name;
     this.comment = comment;
     this.commentTime = commentTime;
     this.upvote = upvote;
     this.id = id;
     this.imgUrl = imgUrl;
-    this.rating = rating;
   }
 
   public String getName() {
@@ -55,9 +53,5 @@ public final class DataStats {
 
   public String getImgUrl() {
     return imgUrl;
-  }
-
-  public int getRating() {
-    return rating;
   }
 }

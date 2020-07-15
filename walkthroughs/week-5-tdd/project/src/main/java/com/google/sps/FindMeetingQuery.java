@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.HashSet;
 import java.lang.Math;
 import java.io.PrintStream;
 
@@ -30,36 +31,32 @@ public final class FindMeetingQuery {
         if (events.size() == 0) {
             return Arrays.asList(TimeRange.WHOLE_DAY);
         }
-        List<String> allAttendees = new ArrayList<>();
-        allAttendees.addAll(request.getAttendees());
-        allAttendees.addAll(request.getOptionalAttendees());
 
         List<TimeRange> timeRangesIngoreOptional = new ArrayList<>();
         List<TimeRange> timeRangesIncludeOptional = new ArrayList<>();
+        HashSet<String> requiredAttendees = new HashSet<String>(request.getAttendees());
+        HashSet<String> allAttendees = new HashSet<String>(request.getAttendees());
+        allAttendees.addAll(request.getOptionalAttendees());
         for (Event item : events) {
-            for (String s : request.getAttendees()) {
-                if (item.getAttendees().contains(s)) {
+            for (String s : item.getAttendees()) {
+                    if (requiredAttendees.contains(s)) {                
                     timeRangesIngoreOptional.add(item.getWhen());
                     break;
                 }
             }
-            for (String s : allAttendees) {
-                if (item.getAttendees().contains(s)) {
+            for (String s : item.getAttendees()) {
+                if (allAttendees.contains(s)) {
                     timeRangesIncludeOptional.add(item.getWhen());
                     break;
                 }
             }
         }
 
-        Collection<TimeRange> ignoreOptional = availableTimeRange(timeRangesIngoreOptional, request);
         Collection<TimeRange> includeOptional = availableTimeRange(timeRangesIncludeOptional, request);
-        if (request.getAttendees().size() == 0) {
-            return includeOptional;
+        if (request.getAttendees().size() == 0 || includeOptional.size() != 0) {
+        return includeOptional;
         }
-        if (includeOptional.size() != 0) {
-            return includeOptional;
-        }
-        return ignoreOptional;
+        return availableTimeRange(timeRangesIngoreOptional, request);
     }
 
     // return timeRanges that satisfy meeting duration from all available timeRanges
@@ -69,39 +66,18 @@ public final class FindMeetingQuery {
         if (len == 0) {
             return Arrays.asList(TimeRange.WHOLE_DAY);
         }
-        if (len == 1) {
-            return Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, timeRanges.get(0).start(), false),
-                TimeRange.fromStartEnd(timeRanges.get(0).end(), TimeRange.END_OF_DAY, true));
-        }
         TimeRange pre = timeRanges.get(0);
         int index = 1;
-        // Merge timerange that overlap
-        while (index < len) {
-            if (index == timeRanges.size()) {
-                break;
-            }
-            if (pre.overlaps(timeRanges.get(index))) {
-                int start = pre.start();
-                int end = Math.max(pre.end(), timeRanges.get(index).end());
-                timeRanges.remove(index);
-                timeRanges.remove(index - 1);
-                timeRanges.add(index - 1, TimeRange.fromStartEnd(start, end, false));
-                pre = timeRanges.get(index - 1);
-                len -= 1;
-            } else {
-                index += 1;
-            }
-        }
-            List<TimeRange> queries = new ArrayList<>();
-            int start = TimeRange.START_OF_DAY;
+        List<TimeRange> queries = new ArrayList<>();
+        int start = TimeRange.START_OF_DAY;
         for (int i = 0; i < timeRanges.size(); i++) {
-            if (timeRanges.get(i).start() - start >= request.getDuration()) {
+            if (start < timeRanges.get(i).start() && timeRanges.get(i).start() - start >= request.getDuration()) {
                 queries.add(TimeRange.fromStartEnd(start, timeRanges.get(i).start(), false));
             }
-            start = timeRanges.get(i).end();
+            start = Math.max(start, timeRanges.get(i).end());
         }
-        if (TimeRange.END_OF_DAY - timeRanges.get(timeRanges.size() - 1).end() >= request.getDuration()) {
-            queries.add(TimeRange.fromStartEnd(timeRanges.get(timeRanges.size() - 1).end(), TimeRange.END_OF_DAY, true));
+        if (TimeRange.END_OF_DAY - start >= request.getDuration()) {
+            queries.add(TimeRange.fromStartEnd(start, TimeRange.END_OF_DAY, true));
         }
         return queries;
     }

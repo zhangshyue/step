@@ -58,7 +58,7 @@ function createListElement(text, num) {
                                         <div class='show-rating  col-8'></div>\
                                     </div>\
                                     <div>\
-                                        <img class='card-img-top rounded-0' src='${text.imgUrl}'>\
+                                        <img class='card-img-top rounded-0' src='/blobstore?blob-key=${text.imgUrl}'>\
                                     </div>\
                                     <p class='card-text'>${text.comment}</p>`;
     } else {

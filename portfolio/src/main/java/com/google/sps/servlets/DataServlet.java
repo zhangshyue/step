@@ -166,19 +166,8 @@ public class DataServlet extends HttpServlet {
         //     blobstoreService.delete(blobKey);
         //     return null;
         // }
-
-        // Use ImagesService to get a URL that points to the uploaded file.
-        ImagesService imagesService = ImagesServiceFactory.getImagesService();
-        ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
-
-        // To support running in Google Cloud Shell with AppEngine's devserver, we must use the relative
-        // path to the image, rather than the path returned by imagesService which contains a host.
-        try {
-            URL url = new URL(imagesService.getServingUrl(options));
-            return url.getPath();
-        } catch (MalformedURLException e) {
-            return imagesService.getServingUrl(options);
-        }
+        
+        return blobKey.getKeyString();
     }
 }
 

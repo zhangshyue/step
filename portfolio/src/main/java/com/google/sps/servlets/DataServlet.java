@@ -57,47 +57,27 @@ public class DataServlet extends HttpServlet {
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         PreparedQuery results = datastore.prepare(query);
         int commentsNumber = Integer.parseInt(request.getParameter("number"));
-        String json = new String();
         Gson gson = new Gson(); 
 
-        if (commentsNumber == -1) {
-            // If number is -1, get rating result of all the comments
-            int sum = 0;
-            double totalRating = 0;
-            double[] ratings = new double[7];
-            for (Entity entity : results.asIterable()) {
-                int rating = Integer.parseInt(entity.getProperty("rating").toString());
-                if (rating != 0) {
-                    ratings[rating - 1] += 1;
-                    totalRating += rating;
-                    ratings[5] += 1;
-                } 
-            }
-            if (ratings[5] != 0) {
-                ratings[6] = Double.parseDouble(String.format("%.1f", totalRating/ratings[5]));
-            }
-            json = gson.toJson(ratings);
-        } else {
-            // If number is not -1, return the comments that you want to fetch
-            List<DataStats> comments = new ArrayList<>();
-            int num = 0;
-            for (Entity entity : results.asIterable()) {
-                long id = entity.getKey().getId();
-                String name = (String) entity.getProperty("name");
-                String comment = (String) entity.getProperty("comment");
-                Date commentTime = (Date) entity.getProperty("commentTime");
-                int upvote = ((Long) entity.getProperty("upvote")).intValue();
-                String imgUrl = (String) entity.getProperty("imgUrl");
-                int rating = Integer.parseInt(entity.getProperty("rating").toString());
+        // return the comments that you want to fetch
+        List<DataStats> comments = new ArrayList<>();
+        int num = 0;
+        for (Entity entity : results.asIterable()) {
+            long id = entity.getKey().getId();
+            String name = (String) entity.getProperty("name");
+            String comment = (String) entity.getProperty("comment");
+            Date commentTime = (Date) entity.getProperty("commentTime");
+            int upvote = ((Long) entity.getProperty("upvote")).intValue();
+            String imgUrl = (String) entity.getProperty("imgUrl");
+            int rating = Integer.parseInt(entity.getProperty("rating").toString());
 
-                comments.add(new DataStats(name, comment, commentTime, upvote, id, imgUrl, rating));
-                num += 1;
-                if (num == commentsNumber) {
-                    break;
-                }
+            comments.add(new DataStats(name, comment, commentTime, upvote, id, imgUrl, rating));
+            num += 1;
+            if (num == commentsNumber) {
+                break;
             }
-            json = gson.toJson(comments);
         }
+        String json = gson.toJson(comments);
         
         response.setContentType("application/json;");
         response.getWriter().println(json);

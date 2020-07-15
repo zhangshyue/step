@@ -144,12 +144,23 @@ google.charts.setOnLoadCallback(drawChart);
 
 /** Creates a bar chart that shows the rating result and adds it to the page. */
 function drawChart() {
-    fetch(`/data?number=-1`).then(response => response.text()).then((ratings) => {
+    fetch('/rating').then(response => response.text()).then((ratings) => {
         ratings = JSON.parse(ratings);
+        let totalNum = 0;
+        let totalRating = 0;
+        for(let i = 0; i < ratings.length; i++) {
+            totalNum += ratings[i];
+            totalRating += ratings[i] * (i + 1);
+        }
+        let averageRating = 0;
+        if (totalNum != 0) {
+            averageRating = (totalRating / totalNum).toFixed(1);
+        }
+
         const resultElements = document.getElementById('rating-result').getElementsByClassName('display-3')[0];
-        resultElements.innerText = ratings[6];
+        resultElements.innerText = averageRating;
         const numReviewsElements = document.getElementById('rating-result').getElementsByClassName('num-reviews')[0];
-        numReviewsElements.innerText = ratings[5] + ' Reviews';
+        numReviewsElements.innerText = totalNum + ' Reviews';
         
         let data = google.visualization.arrayToDataTable([
             ['Rating', 'Total Rating', {role: 'style'}],
@@ -160,7 +171,7 @@ function drawChart() {
             ['1', ratings[0], 'color: #666']
         ]);
         let options;
-        if (ratings[5] == 0) {
+        if (averageRating === 0) {
             options = {
                 title: 'Ratings',
                 width: 500,
@@ -194,7 +205,9 @@ function drawChart() {
 function addRateWebsite() {
     const starElements = document.getElementById('rating').getElementsByClassName('fa-star');
     for (let i = 0; i < starElements.length; i++) {
-        starElements[i].addEventListener('click', () => {rateWebsite(i + 1);});
+        starElements[i].addEventListener('click', () => {
+            rateWebsite(i + 1);
+        });
     }
 }
 

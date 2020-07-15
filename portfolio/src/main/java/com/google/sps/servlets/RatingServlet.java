@@ -59,7 +59,7 @@ public class RatingServlet extends HttpServlet {
         Gson gson = new Gson(); 
 
         // get rating result of all the comments
-        double[] ratings = new double[5];
+        int[] ratings = new int[5];
         for (Entity entity : results.asIterable()) {
             int rating = Integer.parseInt(entity.getProperty("rating").toString());
             if (rating != 0) {

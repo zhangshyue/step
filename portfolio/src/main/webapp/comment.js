@@ -19,6 +19,7 @@ function onload() {
     getContentFunctions();
     checkLogin();
     fetchBlobstoreUrlAndShowForm();
+    addRateWebsite();
 }
 
 /**
@@ -52,15 +53,35 @@ function createListElement(text, num) {
     cardBodyElement.classList.add('card-body');
     if (text.imgUrl) {
         cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
-                                    <p class='card-text text-muted'>${text.commentTime}</p>\
+                                    <div class='row'>\
+                                        <p class='card-text text-muted col-4'>${text.commentTime}</p>\
+                                        <div class='show-rating  col-8'></div>\
+                                    </div>\
                                     <div>\
                                         <img class='card-img-top rounded-0' src='${text.imgUrl}'>\
                                     </div>\
                                     <p class='card-text'>${text.comment}</p>`;
     } else {
         cardBodyElement.innerHTML = `<h5 class='card-title'>${text.name}</h5>\
-                                    <p class='card-text text-muted'>${text.commentTime}</p>\
+                                    <div class='row'>\
+                                        <p class='card-text text-muted col-4'>${text.commentTime}</p>\
+                                        <div class='show-rating  col-8'></div>\
+                                    </div>\
                                     <p class='card-text'>${text.comment}</p>`;
+    }
+
+    // Modify rating stars color according to each comment's rating. 
+    if (text.rating  != 0) {
+        const showRatingElement = cardBodyElement.getElementsByClassName('show-rating')[0];
+        for (let i = 0; i < 5; i++) {
+            const starElement = document.createElement('span');
+            if (i < text.rating) {
+                starElement.classList.add('fa', 'fa-star', 'checked');
+            } else {
+                starElement.classList.add('fa', 'fa-star');
+            }
+            showRatingElement.appendChild(starElement);
+        }
     }
 
     const upvoteElement = document.createElement('p');
@@ -116,5 +137,89 @@ function fetchBlobstoreUrlAndShowForm() {
         commentForm.action = imageUploadUrl;
         commentForm.classList.remove('d-none');
     });
+}
+
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+/** Creates a bar chart that shows the rating result and adds it to the page. */
+function drawChart() {
+    fetch(`/rating`).then(response => response.text()).then((ratings) => {
+        ratings = JSON.parse(ratings);
+        let totalNum = 0;
+        let totalRating = 0;
+        for(let i = 0; i < ratings.length; i++) {
+            totalNum += ratings[i];
+            totalRating += ratings[i] * (i + 1);
+        }
+        let averageRating = 0;
+        if (totalNum != 0) {
+            averageRating = (totalRating / totalNum).toFixed(1);
+        }
+
+        const resultElements = document.getElementById('rating-result').getElementsByClassName('display-3')[0];
+        resultElements.innerText = averageRating;
+        const numReviewsElements = document.getElementById('rating-result').getElementsByClassName('num-reviews')[0];
+        numReviewsElements.innerText = totalNum + ' Reviews';
+        
+        let data = google.visualization.arrayToDataTable([
+            ['Rating', 'Total Rating', {role: 'style'}],
+            ['5', ratings[4], 'color: #666'],
+            ['4', ratings[3], 'color: #666'],
+            ['3', ratings[2], 'color: #666'],
+            ['2', ratings[1], 'color: #666'],
+            ['1', ratings[0], 'color: #666']
+        ]);
+        let options;
+        if (averageRating == 0) {
+            options = {
+                title: 'Ratings',
+                width: 500,
+                height: 200,
+                legend: {position: 'none'},
+                bars: 'horizontal',
+                hAxis: {
+                    viewWindowMode: 'explicit',
+                    viewWindow: {
+                        max: 5,              
+                        min: 0
+                    }
+                }
+            };
+        } else {
+            options = {
+                title: 'Ratings',
+                width: 500,
+                height: 200,
+                legend: {position: 'none'},
+                bars: 'horizontal'
+            };
+        }
+        
+        const chart = new google.visualization.BarChart(document.getElementById('chart-container'));
+        chart.draw(data, options);
+    });
+}
+
+/** Make rating stars clickable. */
+function addRateWebsite() {
+    const starElements = document.getElementById('rating').getElementsByClassName('fa-star');
+    for (let i = 0; i < starElements.length; i++) {
+        starElements[i].addEventListener('click', () => {rateWebsite(i + 1);});
+    }
+}
+
+/** Modify values of rating based on the star that the user clicks. */
+function rateWebsite(rating) {
+    const ratingElement = document.getElementById('rating-value');
+    ratingElement.value = rating;
+    const starElements = document.getElementById('rating').getElementsByClassName('fa-star');
+    for (let i = 0; i < 5; i++) {
+        if (i < rating) {
+            starElements[i].classList.add('checked');
+        } else {
+            starElements[i].classList.remove('checked');
+        }
+    }
 }
 

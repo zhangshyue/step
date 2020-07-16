@@ -38,14 +38,14 @@ public final class FindMeetingQuery {
         HashSet<String> allAttendees = new HashSet<String>(request.getAttendees());
         allAttendees.addAll(request.getOptionalAttendees());
         for (Event item : events) {
-            for (String s : item.getAttendees()) {
-                    if (requiredAttendees.contains(s)) {                
+            for (String attendee : item.getAttendees()) {
+                if (requiredAttendees.contains(attendee)) {                
                     timeRangesIngoreOptional.add(item.getWhen());
                     break;
                 }
             }
-            for (String s : item.getAttendees()) {
-                if (allAttendees.contains(s)) {
+            for (String attendee : item.getAttendees()) {
+                if (allAttendees.contains(attendee)) {
                     timeRangesIncludeOptional.add(item.getWhen());
                     break;
                 }
@@ -54,7 +54,7 @@ public final class FindMeetingQuery {
 
         Collection<TimeRange> includeOptional = availableTimeRange(timeRangesIncludeOptional, request);
         if (request.getAttendees().size() == 0 || includeOptional.size() != 0) {
-        return includeOptional;
+            return includeOptional;
         }
         return availableTimeRange(timeRangesIngoreOptional, request);
     }
